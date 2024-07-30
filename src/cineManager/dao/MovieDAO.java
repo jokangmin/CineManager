@@ -96,6 +96,7 @@ public class MovieDAO {
 		try {
 			System.out.print("수정할 항목 : ");
 			String update_item = scan.nextLine();
+
 			if(update_item.contains("제목")) {
 				sql = "update movies set title = ? where code = ? and title = ?";
 				System.out.print("새로운 제목 : ");
@@ -105,6 +106,7 @@ public class MovieDAO {
 				pstmt.setInt(2,code);				
 				pstmt.setString(3,title);
 			}
+
 			else if(update_item.contains("감독")) {
 				sql = "update movies set director = ? where code = ? and title = ?";
 				System.out.print("새로운 감독 : ");
@@ -114,6 +116,7 @@ public class MovieDAO {
 				pstmt.setInt(2,code);				
 				pstmt.setString(3,title);
 			}
+
 			else if(update_item.contains("장르")) {
 				sql = "update movies set genre = ? where code = ? and title = ?";
 				System.out.print("새로운 장르 : ");
@@ -123,6 +126,7 @@ public class MovieDAO {
 				pstmt.setInt(2,code);				
 				pstmt.setString(3,title);
 			}
+
 			else if(update_item.contains("개봉일")) {
 				sql = "update movies set release_date = TO_DATE(?, 'YYYY-MM-DD') where code = ? and title = ?";
 				System.out.print("새로운 개봉일(yyyy-MM-dd) : ");
@@ -132,6 +136,7 @@ public class MovieDAO {
 				pstmt.setInt(2,code);				
 				pstmt.setString(3,title);
 			}
+
 			else if(update_item.contains("줄거리")) {
 				sql = "update movies set synopsis = ? where code = ? and title = ?";
 				System.out.print("새로운 줄거리 : ");
