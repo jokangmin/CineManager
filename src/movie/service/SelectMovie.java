@@ -1,5 +1,8 @@
 package movie.service;
 
-public class SelectMovie {
-
+public class SelectMovie implements Movie{
+	@Override
+	public void execute() {
+		
+	}
 }
