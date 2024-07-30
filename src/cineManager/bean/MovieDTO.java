@@ -1,5 +1,5 @@
 package cineManager.bean;
 
 public class MovieDTO {
- //test 혜진
+ //test 혜진test
 }
