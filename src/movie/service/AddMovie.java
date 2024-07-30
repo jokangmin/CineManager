@@ -18,16 +18,13 @@ public class AddMovie implements Movie{
 
 		System.out.print("영화번호 입력 : ");
 		int code = scan.nextInt();
-		scan.nextLine();
+		scan.nextLine(); // 버퍼 비우기
 		System.out.print("영화제목 입력 : ");
 		String title  = scan.nextLine();
-		scan.nextLine();
 		System.out.print("영화감독 입력 : ");
 		String director = scan.nextLine();
-		scan.nextLine();
 		System.out.print("영화장르 입력 : ");
 		String genre = scan.nextLine();
-		scan.nextLine();
         System.out.print("영화개봉일 입력 (형식: yyyy-MM-dd) : ");
         String releaseDate = scan.nextLine();
 //        String releaseDateStr = scan.nextLine();
@@ -41,7 +38,7 @@ public class AddMovie implements Movie{
 //            scan.close();
 //            return; 
 //        }
-		System.out.println("영화줄거리 입력 : ");
+		System.out.print("영화줄거리 입력 : ");
 		String synopsis = scan.nextLine();
 
 
@@ -55,7 +52,7 @@ public class AddMovie implements Movie{
 
 
 		int su = movieDAO.add(movieDTO);
-		System.out.println(su + " 개의 영화가 추가되었습니다..");
+		System.out.println(su + " 개의 영화가 추가되었습니다..\n");
 
 		//	System.out.prinstln("영화가 추가되었습니다.");
 	}

@@ -30,7 +30,6 @@ public class IndexMain {
 				member = new SignInMember();
 				member.execute();
 			} else if (num == 3) {
-				System.out.println("프로그램을 종료합니다.");
 				break;
 			} else {
 				System.out.println("잘못된 선택입니다. 다시 선택해주세요.");
@@ -42,7 +41,7 @@ public class IndexMain {
 	public static void main(String[] args) {
 		IndexMain indexMain = new IndexMain();
 		indexMain.menu();
-		System.out.println("프로그램을 종료합니다");
+		System.out.println("\n프로그램을 종료합니다");
 	}
 
 }

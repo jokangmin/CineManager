@@ -32,7 +32,7 @@ public class SignInMember implements Member {
 				System.out.println("-------------------------------------------------");
 			}
 			else {
-				System.out.println(name + "님 로그인");
+				System.out.println("\n" + name + "님 로그인\n");
 				break;
 			}
 		}
