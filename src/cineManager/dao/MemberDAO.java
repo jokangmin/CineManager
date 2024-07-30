@@ -63,9 +63,10 @@ public class MemberDAO {
 
 	public boolean isExistId(String id) { // id 중복체크
 		boolean exists = false; 
-		String sql = "select * from member where id=?";
+		String sql = "select * from members where id=?";
 
 		try {
+			getConnection(); // 연결 초기화
 			pstmt = con.prepareStatement(sql);
 			prepareStatement(sql, id); // ?에 Data Mapping
 			rs = pstmt.executeQuery();
@@ -81,7 +82,7 @@ public class MemberDAO {
 
 	public void insert(MemberDTO memberDTO) { // 회원가입
 		int su = 0;
-		String sql = "insert into member values (?, ?, ?, ?)";
+		String sql = "insert into members values (?, ?, ?, ?)";
 
 		try {
 			// ?에 Data Mapping
@@ -101,7 +102,7 @@ public class MemberDAO {
 
 	public String login(String id, String pwd) { // 로그인
 		String name = null;
-		String sql = "select * from member where id=? and pwd=?";
+		String sql = "select * from members where id=? and pwd=?";
 
 		try {
 			prepareStatement(sql, id, pwd); // ?에 Data Mapping
@@ -121,7 +122,7 @@ public class MemberDAO {
 	// DB에서 MemberDTO 객체 반환
 	public MemberDTO getMemberToUpdate(String id) {
 		MemberDTO memberDTO = null;
-		String sql = "select * from member where id=?";
+		String sql = "select * from members where id=?";
 		try {
 			prepareStatement(sql, id); // ?에 Data Mapping
 			rs = pstmt.executeQuery();
@@ -144,7 +145,7 @@ public class MemberDAO {
 
 	public void update(Map<String, String> map) { // 회원정보수정
 		int su = 0;
-		String sql = "update member set name=?, pwd=?, phone=? where id=?";
+		String sql = "update members set name=?, pwd=?, phone=? where id=?";
 
 		try {
 			// ?에 Data Mapping
@@ -161,7 +162,7 @@ public class MemberDAO {
 	
 	public MemberDTO getMemberToDelete(String id, String pwd) {
 		MemberDTO memberDTO = null;
-		String sql = "select * from member where id=? and pwd=?";
+		String sql = "select * from members where id=? and pwd=?";
 
 		try {
 			prepareStatement(sql, id, pwd); // ?에 Data Mapping
@@ -186,7 +187,7 @@ public class MemberDAO {
 	public int delete(String id) { // 회원탈퇴
 		int su = 0;
 		getConnection(); // SQL; database 연결(접속)
-		String sql = "delete from member where id=?";
+		String sql = "delete from members where id=?";
 		try {
 			prepareStatement(sql, id); // ?에 Data Mapping
 			su = pstmt.executeUpdate();
