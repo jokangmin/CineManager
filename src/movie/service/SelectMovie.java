@@ -10,7 +10,6 @@ public class SelectMovie implements Movie{
 	@Override
 	public void execute() {
 		int menu_num = 0;
-//		Scanner scan = new Scanner(System.in);
 		MovieDAO movieDAO = MovieDAO.getInstance();
 		while(true) {
 			System.out.println("-----------------------");
@@ -22,6 +21,7 @@ public class SelectMovie implements Movie{
 			try {
                 menu_num = scan.nextInt();
                 scan.nextLine(); // 개행 문자 제거
+                System.out.println();
 
                 if (menu_num == 3) break;
                 else if (menu_num == 1) {
@@ -29,10 +29,12 @@ public class SelectMovie implements Movie{
                 } else if (menu_num == 2) {
                     System.out.print("영화 제목 검색 : ");
                     String title = scan.nextLine();
+                    System.out.println();
                     movieDAO.selectTitleSummary(title);
                     System.out.print("영화 번호 입력 : ");
                     int code = scan.nextInt();
                     scan.nextLine(); // 개행 문자 제거
+                    System.out.println();
                     movieDAO.selectDetail(code);
                 } else {
                     System.out.println("잘못된 선택입니다. 다시 선택해주세요.");

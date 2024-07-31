@@ -12,9 +12,6 @@ public class UpdateMember implements Member {
 	
 	@Override
 	public void execute() {
-		System.out.println();
-//		Scanner in = new Scanner(System.in);
-
 		// DB - SingleTon
 		// Singleton.getInstance()를 호출하여 동일한 싱글톤 인스턴스를 가져온다
 		MemberDAO memberDAO = MemberDAO.getInstance(); 

@@ -23,6 +23,7 @@ public class DeleteMember implements Member {
 
 			System.out.print("비밀번호 입력 : ");
 			pwd = scan.next();
+			System.out.println();
 			
 			memberDTO = memberDAO.getMemberToDelete(id, pwd);
 			
@@ -35,6 +36,6 @@ public class DeleteMember implements Member {
 
 		}
 		 memberDAO.delete(id);
-         System.out.println("회원탈퇴 되었습니다.");
+         System.out.println("회원탈퇴 되었습니다.\n");
 	}
 }

@@ -102,6 +102,7 @@ public class MovieDAO {
 							       rs.getDate("release_date"));
 			}
 			pstmt.executeUpdate();
+			System.out.println();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -124,6 +125,7 @@ public class MovieDAO {
                         rs.getString("title") + "\t" +
                         rs.getString("director"));
             }
+            System.out.println();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -148,6 +150,7 @@ public class MovieDAO {
 						"줄거리 : " + rs.getString("synopsis"));
 			}
 			pstmt.executeUpdate();
+			System.out.println();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -214,7 +217,7 @@ public class MovieDAO {
 				pstmt.setString(3,title);
 			}
 			pstmt.executeUpdate();	
-			System.out.println("영화 '" + title + "' 이(가) 수정되었습니다.");
+			System.out.println("영화 '" + title + "' 이(가) 수정되었습니다.\n");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -231,7 +234,7 @@ public class MovieDAO {
 			pstmt.setInt(1,code);				
 			pstmt.setString(2,"%" + title + "%");
 			pstmt.executeUpdate();	
-			System.out.println("영화 '" + title + "' 이(가) 삭제되었습니다.");
+			System.out.println("영화 '" + title + "' 이(가) 삭제되었습니다.\n");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {

@@ -10,7 +10,6 @@ public class UpdateMovie implements Movie{
 	public void execute() {
 		Scanner scan = new Scanner(System.in);
 		MovieDAO movieDAO = MovieDAO.getInstance();
-		System.out.println();
 		System.out.print("수정할 영화 제목 : ");
 		String title = scan.nextLine();
 		movieDAO.selectTitleMovie(title);

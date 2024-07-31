@@ -56,7 +56,7 @@ public class SignInMain implements Member {
                     new DeleteMember().execute();
                     break;
                 case 7:
-                    System.out.println("\n로그아웃합니다.");
+                    System.out.println("로그아웃되었습니다.\n");
                     return; // 로그아웃 시 메뉴를 종료하고 IndexMain으로 돌아간다
                 default:
                     System.out.println("\n잘못된 선택입니다. 다시 선택해주세요.\n");
