@@ -88,6 +88,54 @@ public class MovieDAO {
 		return su;
 	}
 
+	public void selectDetail(int code) {
+		getConnection();
+		String sql = "select * from movies where code = ?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1,code);
+			rs = pstmt.executeQuery();
+			System.out.println("*** 조회결과 ***");
+			if(rs.next()) {
+				System.out.println("번호 : " + rs.getInt("code") +"\n" + 
+						"제목 : " + rs.getString("title") +"\n" + 
+						"감독 : " + rs.getString("director") + "\n" + 
+						"장르 : " + rs.getString("genre") + "\n" +
+						"개봉일 : " + rs.getDate("release_date") + "\n" +
+						"줄거리 : " + rs.getString("synopsis"));
+			}
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			finally_ck();
+		}
+	}
+	
+	public void selectAll() {
+		getConnection();
+		String sql = "select * from movies";
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			System.out.println("영화 번호" + "\t" +
+					"영화 제목" + "\t" +
+					"영화 감독" + "\t" +
+					"영화 개봉일");
+			while(rs.next()) {
+				System.out.println(rs.getString("code") +"\t" +
+								   rs.getString("title") +"\t" + 
+							       rs.getString("director") + "\t" +
+							       rs.getDate("release_date"));
+			}
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			finally_ck();
+		}
+	}
+	
 	public void updateMovie(String title, int code) { //업데이트 메소드
 		getConnection();
 

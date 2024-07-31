@@ -28,7 +28,7 @@ public class DeleteMember implements Member {
 			
 			memberDTO = memberDAO.getMemberToDelete(id, pwd);
 			
-			if (memberDTO == null) {
+			if (memberDTO != null) {
 				break;
 			}
 			else {
@@ -36,8 +36,8 @@ public class DeleteMember implements Member {
 			}
 
 		}
-		// 입력
-		memberDAO.delete(id);
-		System.out.println("회원탈퇴 되었습니다.");
+		 in.close();
+		 memberDAO.delete(id);
+         System.out.println("회원탈퇴 되었습니다.");
 	}
 }
