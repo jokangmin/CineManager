@@ -30,7 +30,13 @@ public class SelectMovie implements Movie{
                     System.out.print("영화 제목 검색 : ");
                     String title = scan.nextLine();
                     System.out.println();
-                    movieDAO.selectTitleSummary(title);
+                    if(movieDAO.titleCheck(title)) {
+            			movieDAO.selectTitleSummary(title);
+            		}
+            		else {
+            			System.out.println("영화 제목 : " + title + "이(가) 존재하지 않습니다.");
+            			return;
+            		}
                     System.out.print("영화 번호 입력 : ");
                     int code = scan.nextInt();
                     scan.nextLine(); // 개행 문자 제거

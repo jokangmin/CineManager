@@ -103,7 +103,6 @@ public class MovieDAO {
 				System.out.println(
 						String.format("%-10s", rs.getString("code")) + String.format("%-20s", rs.getString("title"))
 								+ String.format("%-15s", rs.getString("director")) + rs.getDate("release_date"));
-				// System.out.println(String.format("%-10s", "TEST"));
 			}
 			pstmt.executeUpdate();
 			System.out.println();
@@ -289,4 +288,23 @@ public class MovieDAO {
 		return state;
 	}
 
+	public boolean titleCheck(String title) { // 조강민 7/31 제목확인 추가
+		boolean state = false;
+		getConnection();
+		String sql = "select * from movies where title = ?"; 
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, title);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+	            state = true;
+	        }
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			finally_ck();
+		}
+		return state;
+	}
 }

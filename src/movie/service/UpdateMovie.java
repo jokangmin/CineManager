@@ -12,7 +12,13 @@ public class UpdateMovie implements Movie{
 		MovieDAO movieDAO = MovieDAO.getInstance();
 		System.out.print("수정할 영화 제목 : ");
 		String title = scan.nextLine();
-		movieDAO.selectTitleMovie(title);
+		if(movieDAO.titleCheck(title)) {
+			movieDAO.selectTitleSummary(title);
+		}
+		else {
+			System.out.println("영화 제목이 올바르지 않습니다.");
+			return;
+		}
 		System.out.print("수정할 영화 번호 : ");
 		int code = scan.nextInt();
 		scan.nextLine();
@@ -24,3 +30,4 @@ public class UpdateMovie implements Movie{
 		}
 	}
 }
+
