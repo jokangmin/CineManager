@@ -126,6 +126,9 @@ public class MemberDAO {
 		try {
 			prepareStatement(sql, id); // ?에 Data Mapping
 			rs = pstmt.executeQuery();
+			System.out.println("이름" + "\t" +
+                    "id" + "\t" +
+                    "비밀번호" + "\t" + "전화번호");
 			if (rs.next()) { // MemberDTO 객체를 생성, DB에서 가져온 값을 설정
 				memberDTO = new MemberDTO(
 						rs.getString("name"),
