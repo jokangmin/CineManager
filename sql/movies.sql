@@ -6,4 +6,6 @@ CREATE TABLE movies (
     genre VARCHAR2(50) NOT NULL,
     release_date DATE NOT NULL,
     synopsis CLOB
+    user_id VARCHAR2(30) NOT NULL, -- 추가
+	FOREIGN KEY (user_id) REFERENCES members(id)
 );

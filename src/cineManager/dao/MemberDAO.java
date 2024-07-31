@@ -20,6 +20,7 @@ public class MemberDAO {
 	private PreparedStatement pstmt;
 	private ResultSet rs; // SQL(select) 쿼리 결과를 저장하는 객체; select를 하면 ResultSet이 따라오도록. 여기에만 담아오도록
 
+	// 싱글톤 인스턴스 생성
 	private static MemberDAO instance = new MemberDAO();
 
 	public static MemberDAO getInstance() {

@@ -1,6 +1,5 @@
 package cineManager.bean;
 
-import java.util.Date;
 //import lombok.Data;
 
 //@Data
@@ -11,6 +10,8 @@ public class MovieDTO {
     private String genre;
     private String releaseDate;
     private String synopsis;
+    private String userId; // 추가
+    
 	public int getCode() {
 		return code;
 	}
@@ -46,6 +47,12 @@ public class MovieDTO {
 	}
 	public void setSynopsis(String synopsis) {
 		this.synopsis = synopsis;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	
 }

@@ -1,13 +1,18 @@
 package movie.service;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
 import cineManager.bean.MovieDTO;
 import cineManager.dao.MovieDAO;
 
 
 public class AddMovie implements Movie{
 	private Scanner scan = new Scanner(System.in);
+	private String userId; // 로그인한 사용자의 ID
+
+    public AddMovie(String userId) {
+        this.userId = userId;
+    }
 	
 	@Override
 	public void execute() {
@@ -34,6 +39,7 @@ public class AddMovie implements Movie{
 	            scan.nextLine(); // 잘못된 입력 처리 후 개행 문자 제거
 	        }
 		}
+		
 		System.out.print("영화제목 입력 : ");
 		String title  = scan.nextLine();
 		System.out.print("영화감독 입력 : ");
@@ -45,7 +51,6 @@ public class AddMovie implements Movie{
 		System.out.print("영화줄거리 입력 : ");
 		String synopsis = scan.nextLine();
 
-
 		MovieDTO movieDTO = new MovieDTO();
 		movieDTO.setCode(code);
 		movieDTO.setTitle(title);		
@@ -53,12 +58,10 @@ public class AddMovie implements Movie{
 		movieDTO.setGenre(genre);
 		movieDTO.setReleaseDate(releaseDate);
 		movieDTO.setSynopsis(synopsis);
+		movieDTO.setUserId(userId); // 로그인한 사용자 ID 설정
 
-
-		int su = movieDAO.add(movieDTO);
+		int su = movieDAO.add(movieDTO, userId);
 		System.out.println(su + " 개의 영화가 추가되었습니다..\n");
-
-		//	System.out.prinstln("영화가 추가되었습니다.");
 	}
 
 }

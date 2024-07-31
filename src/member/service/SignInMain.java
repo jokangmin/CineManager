@@ -1,4 +1,5 @@
 package member.service;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -9,11 +10,14 @@ import movie.service.UpdateMovie;
 
 public class SignInMain implements Member {
 	private Scanner scan = new Scanner(System.in);
+	private String userId; // 로그인한 사용자의 ID
+	
+	public SignInMain(String userId) {
+        this.userId = userId;
+    }
 	
     @Override
     public void execute() {
-//        Scanner in = new Scanner(System.in);
-
         while (true) {
         	System.out.println("************************");
             System.out.println("1. 영화 추가");
@@ -38,16 +42,16 @@ public class SignInMain implements Member {
 
             switch (num) {
                 case 1:
-                    new AddMovie().execute();
+                    new AddMovie(userId).execute(); // 로그인한 사용자 ID 전달
                     break;
                 case 2:
-                    new SelectMovie().execute();
+                    new SelectMovie(userId).execute(); // 로그인한 사용자 ID 전달
                     break;
                 case 3:
-                    new UpdateMovie().execute();
+                    new UpdateMovie(userId).execute(); // 로그인한 사용자 ID 전달
                     break;
                 case 4:
-                    new DeleteMovie().execute();
+                    new DeleteMovie(userId).execute(); // 로그인한 사용자 ID 전달
                     break;
                 case 5:
                     new UpdateMember().execute();

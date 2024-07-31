@@ -54,6 +54,5 @@ public class UpdateMember implements Member {
 		memberDAO.update(map);
 		System.out.println("\n회원정보가 수정되었습니다.\n");
 
-
 	}
 }

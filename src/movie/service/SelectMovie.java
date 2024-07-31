@@ -6,6 +6,11 @@ import cineManager.dao.MovieDAO;
 
 public class SelectMovie implements Movie{
 	private Scanner scan = new Scanner(System.in);
+	private String userId; // 로그인한 사용자의 ID
+
+    public SelectMovie(String userId) {
+        this.userId = userId;
+    }
 	
 	@Override
 	public void execute() {
@@ -25,13 +30,14 @@ public class SelectMovie implements Movie{
 
                 if (menu_num == 3) break;
                 else if (menu_num == 1) {
-                    movieDAO.selectAll();
-                } else if (menu_num == 2) {
+                    movieDAO.selectAll(userId); // 사용자 ID를 통해 본인 영화만 조회
+                } 
+                else if (menu_num == 2) {
                     System.out.print("영화 제목 검색 : ");
                     String title = scan.nextLine();
                     System.out.println();
                     if(movieDAO.titleCheck(title)) {
-            			movieDAO.selectTitleSummary(title);
+            			movieDAO.selectTitleSummary(title, userId); // 사용자 ID를 통해 본인 영화만 조회
             		}
             		else {
             			System.out.println("영화 제목 : " + title + "이(가) 존재하지 않습니다.");
@@ -41,7 +47,7 @@ public class SelectMovie implements Movie{
                     int code = scan.nextInt();
                     scan.nextLine(); // 개행 문자 제거
                     System.out.println();
-                    movieDAO.selectDetail(code);
+                    movieDAO.selectDetail(code, userId); // 사용자 ID를 통해 본인 영화만 조회
                 } else {
                     System.out.println("잘못된 선택입니다. 다시 선택해주세요.");
                 }

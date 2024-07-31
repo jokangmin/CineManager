@@ -1,12 +1,16 @@
 package member.service;
 
 import java.util.Scanner;
-
 import cineManager.dao.MemberDAO;
 import cineManager.bean.MemberDTO;
 
 public class SignInMember implements Member {
 	private Scanner scan = new Scanner(System.in);
+	private String userId; // 로그인한 사용자의 ID
+	
+	public String getUserId() {
+        return userId;
+    }
 	
 	@Override
 	public void execute() {
@@ -30,13 +34,14 @@ public class SignInMember implements Member {
 				System.out.println("-------------------------------------------------");
 			}
 			else {
+				userId = id; // 로그인한 사용자의 ID 저장
 				System.out.println("\n" + name + "님 로그인\n");
 				break;
 			}
 		}
 
 		// 로그인 성공 후, SignInMain 클래스 실행
-        new SignInMain().execute();
+        new SignInMain(userId).execute();
 	}
 
 }
