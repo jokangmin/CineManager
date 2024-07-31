@@ -14,7 +14,13 @@ public class DeleteMovie implements Movie{
 		
 		System.out.print("삭제할 영화 제목 : ");
 		String title = scan.nextLine();
-		movieDAO.selectTitleSummary(title);
+		if(movieDAO.titleCheck(title)) {
+			movieDAO.selectTitleSummary(title);
+		}
+		else {
+			System.out.println("영화 제목이 올바르지 않습니다.");
+			return;
+		}
 		
 		System.out.print("삭제할 영화 번호 : ");
 		int code = scan.nextInt();
@@ -25,6 +31,7 @@ public class DeleteMovie implements Movie{
 		}
 		else {
 			System.out.println("올바른 code 값이 아닙니다.");
+			return;
 		}
 	}
 }
