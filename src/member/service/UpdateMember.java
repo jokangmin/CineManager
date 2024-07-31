@@ -8,11 +8,12 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class UpdateMember implements Member {
-
+	private Scanner scan = new Scanner(System.in);
+	
 	@Override
 	public void execute() {
 		System.out.println();
-		Scanner in = new Scanner(System.in);
+//		Scanner in = new Scanner(System.in);
 
 		// DB - SingleTon
 		// Singleton.getInstance()를 호출하여 동일한 싱글톤 인스턴스를 가져온다
@@ -22,7 +23,7 @@ public class UpdateMember implements Member {
 		MemberDTO memberDTO = null;
 		while (true) {
 			System.out.print("아이디 검색 : ");
-			id = in.next();
+			id = scan.next();
 			
 			// DB에서 해당 아이디로 회원 정보 조회
 			memberDTO = memberDAO.getMemberToUpdate(id);
@@ -39,13 +40,13 @@ public class UpdateMember implements Member {
 		
 		
 		System.out.print("\n수정할 이름 입력 : ");
-		String name = in.next();
+		String name = scan.next();
 		
 		System.out.print("수정할 비밀번호 입력 : ");
-		String pwd = in.next();
+		String pwd = scan.next();
 		
 		System.out.print("수정할 핸드폰 입력(010-1234-1234) : ");
-		String phone = in.next();
+		String phone = scan.next();
 		
 		Map<String, String> map = new HashMap<>();
 		map.put("name", name);
@@ -54,7 +55,7 @@ public class UpdateMember implements Member {
 		map.put("phone", phone);
 		
 		memberDAO.update(map);
-		System.out.println("회원정보가 수정되었습니다.\n");
+		System.out.println("\n회원정보가 수정되었습니다.\n");
 
 
 	}

@@ -1,15 +1,16 @@
 package movie.service;
 
 import java.util.Scanner;
-
 import cineManager.dao.MovieDAO;
 
 
 public class SelectMovie implements Movie{
+	private Scanner scan = new Scanner(System.in);
+	
 	@Override
 	public void execute() {
 		int menu_num = 0;
-		Scanner scan = new Scanner(System.in);
+//		Scanner scan = new Scanner(System.in);
 		MovieDAO movieDAO = MovieDAO.getInstance();
 		while(true) {
 			System.out.println("-----------------------");
@@ -18,18 +19,28 @@ public class SelectMovie implements Movie{
 			System.out.println("3. 뒤로가기 ");
 			System.out.println("-----------------------");
 			System.out.print("번호 선택 : ");
-			menu_num = scan.nextInt();
-			if(menu_num == 3) break;
-			else if(menu_num == 1) movieDAO.selectAll();
-			else if(menu_num == 2) {
-				System.out.print("영화 제목 검색 : ");
-				String title = scan.nextLine();
-				scan.next();
-				movieDAO.selectTitleMovie(title);
-				System.out.print("영화 번호 입력 : ");
-				int code = scan.nextInt();
-				movieDAO.selectDetail(code);
-			}
+			try {
+                menu_num = scan.nextInt();
+                scan.nextLine(); // 개행 문자 제거
+
+                if (menu_num == 3) break;
+                else if (menu_num == 1) {
+                    movieDAO.selectAll();
+                } else if (menu_num == 2) {
+                    System.out.print("영화 제목 검색 : ");
+                    String title = scan.nextLine();
+                    movieDAO.selectTitleSummary(title);
+                    System.out.print("영화 번호 입력 : ");
+                    int code = scan.nextInt();
+                    scan.nextLine(); // 개행 문자 제거
+                    movieDAO.selectDetail(code);
+                } else {
+                    System.out.println("잘못된 선택입니다. 다시 선택해주세요.");
+                }
+            } catch (Exception e) {
+                System.out.println("잘못된 입력입니다. 숫자를 입력해주세요.");
+                scan.nextLine(); // 잘못된 입력 처리 후 개행 문자 제거
+            }
 		}
 	}
 }

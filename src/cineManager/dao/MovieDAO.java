@@ -58,8 +58,6 @@ public class MovieDAO {
 		int su =0;
 		getConnection();
 		String sql = "insert into movies values(?,?,?,?,?,?)";
-//		System.out.println(code+ "\t" + title + " 을 입력합니다.");
-
 
 		try {
 			pstmt = con.prepareStatement(sql); //생성
@@ -84,10 +82,55 @@ public class MovieDAO {
 				e.printStackTrace();
 			} 
 		}
-
 		return su;
 	}
-
+	
+	public void selectAll() {
+		getConnection();
+		String sql = "select * from movies";
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			System.out.println("영화번호" + "\t" +
+					"영화제목" + "\t" +
+					"영화감독" + "\t" +
+					"영화개봉일");
+			while(rs.next()) {
+				System.out.println(rs.getString("code") +"\t" +
+								   rs.getString("title") +"\t" + 
+							       rs.getString("director") + "\t" +
+							       rs.getDate("release_date"));
+			}
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			finally_ck();
+		}
+	}
+	
+	public void selectTitleSummary(String title) { // 영화 번호, 제목, 감독만 출력해주는 메소드
+        getConnection();
+        String sql = "select code, title, director from movies where title like ?";
+        try {
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, "%" + title + "%");
+            rs = pstmt.executeQuery();
+            System.out.println("영화번호" + "\t" +
+                    "영화제목" + "\t" +
+                    "영화감독");
+            while (rs.next()) {
+                System.out.println(rs.getInt("code") + "\t" +
+                        rs.getString("title") + "\t" +
+                        rs.getString("director"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+        	finally_ck();
+        }
+    }
+	
 	public void selectDetail(int code) {
 		getConnection();
 		String sql = "select * from movies where code = ?";
@@ -112,34 +155,10 @@ public class MovieDAO {
 		}
 	}
 	
-	public void selectAll() {
-		getConnection();
-		String sql = "select * from movies";
-		try {
-			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			System.out.println("영화 번호" + "\t" +
-					"영화 제목" + "\t" +
-					"영화 감독" + "\t" +
-					"영화 개봉일");
-			while(rs.next()) {
-				System.out.println(rs.getString("code") +"\t" +
-								   rs.getString("title") +"\t" + 
-							       rs.getString("director") + "\t" +
-							       rs.getDate("release_date"));
-			}
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			finally_ck();
-		}
-	}
-	
-	public void updateMovie(String title, int code) { //업데이트 메소드
+	public void updateMovie(String title, int code) { // 업데이트 메소드
 		getConnection();
 
-		System.out.println(code+ "\t" + title + " 을 수정합니다.");
+		System.out.println(code + "\t" + title + " 을(를) 수정합니다.\n");
 		String sql = "";
 		try {
 			System.out.print("수정할 항목 : ");
@@ -206,11 +225,11 @@ public class MovieDAO {
 
 	public void deleteMovie(String title, int code) {
 		getConnection();
-		String sql = "delete movies where code = ? and title = ?";
+		String sql = "delete movies where code = ? and title like ?";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1,code);				
-			pstmt.setString(2,title);
+			pstmt.setString(2,"%" + title + "%");
 			pstmt.executeUpdate();	
 			System.out.println("영화 '" + title + "' 이(가) 삭제되었습니다.");
 		} catch (SQLException e) {
@@ -220,20 +239,19 @@ public class MovieDAO {
 		}
 	}
 
-
-	public void selectTitleMovie(String title) { //제목으로 검색해서 출력해주는 메소드
+	public void selectTitleMovie(String title) { // 제목으로 검색해서 출력해주는 메소드
 		getConnection();
-		String sql = "select * from movies where title = ?";
+		String sql = "select * from movies where title like ?";
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1,title);
+			pstmt.setString(1,"%" + title + "%");
 			rs = pstmt.executeQuery();
-			System.out.println("영화 번호" + "\t" +
-					"영화 제목" + "\t" +
-					"영화 감독" + "\t" +
-					"영화 장르" + "\t" +
-					"영화 개봉일" + "\t" +
-					"영화 줄거리");
+			System.out.println("영화번호" + "\t" +
+					"영화제목" + "\t" +
+					"영화감독" + "\t" +
+					"영화장르" + "\t" +
+					"영화개봉일" + "\t" +
+					"영화줄거리");
 			while(rs.next()) {
 				System.out.println(rs.getInt("code") +"\t" + 
 						rs.getString("title") +"\t" + 
@@ -253,17 +271,15 @@ public class MovieDAO {
 	public boolean codeCheck(int code) { //code 가 있는 code 인지 확인해주는 부분 
 		boolean state = false;
 		getConnection();
-		String sql = "select code from movies";
+		String sql = "select count(*) from movies where code = ?"; // 주어진 code만 확인
 		try {
 			pstmt = con.prepareStatement(sql);
-			//			pstmt.setString(1,code);
+			pstmt.setInt(1, code);
 			rs = pstmt.executeQuery();
-			if (rs.next()) { // 추가된 부분
-				int get_code = rs.getInt("code");
-				if (get_code == code) state = true;
-			}
-			//			int get_code = rs.getInt("code");
-			//			if(get_code == code) state = true;
+			if (rs.next()) {
+	            int count = rs.getInt(1);
+	            state = (count > 0); // 코드가 존재하면 true, 그렇지 않으면 false
+	        }
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

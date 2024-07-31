@@ -1,15 +1,18 @@
 package member.service;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 import movie.service.AddMovie;
 import movie.service.DeleteMovie;
 import movie.service.SelectMovie;
 import movie.service.UpdateMovie;
-import java.util.Scanner;
 
 public class SignInMain implements Member {
-
+	private Scanner scan = new Scanner(System.in);
+	
     @Override
     public void execute() {
-        Scanner in = new Scanner(System.in);
+//        Scanner in = new Scanner(System.in);
 
         while (true) {
         	System.out.println("************************");
@@ -22,7 +25,16 @@ public class SignInMain implements Member {
             System.out.println("7. 로그아웃");
             System.out.println("************************");
             System.out.print("번호 입력 : ");
-            int num = in.nextInt();
+            int num;
+            try {
+            	num = scan.nextInt();
+            	scan.nextLine(); // 입력 후 개행 문자 제거
+            } catch (InputMismatchException e) {
+                System.out.println("잘못된 입력입니다. 숫자를 입력해주세요.");
+                scan.nextLine(); // 잘못된 입력 처리 후 개행 문자 제거
+                continue; // 다시 입력 받기
+            }
+            System.out.println();
 
             switch (num) {
                 case 1:

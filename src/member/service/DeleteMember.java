@@ -5,12 +5,10 @@ import cineManager.bean.MemberDTO;
 import java.util.Scanner;
 
 public class DeleteMember implements Member {
-
+	private Scanner scan = new Scanner(System.in);
+	
 	@Override
 	public void execute() {
-		System.out.println();
-		Scanner in = new Scanner(System.in);
-
 		// DB - SingleTon
 		// Singleton.getInstance()를 호출하여 동일한 싱글톤 인스턴스를 가져온다
 		MemberDAO memberDAO = MemberDAO.getInstance(); 
@@ -21,10 +19,10 @@ public class DeleteMember implements Member {
 
 		while (true) {
 			System.out.print("아이디 입력 : ");
-			id = in.next();
+			id = scan.next();
 
 			System.out.print("비밀번호 입력 : ");
-			pwd = in.next();
+			pwd = scan.next();
 			
 			memberDTO = memberDAO.getMemberToDelete(id, pwd);
 			
@@ -36,7 +34,6 @@ public class DeleteMember implements Member {
 			}
 
 		}
-		 in.close();
 		 memberDAO.delete(id);
          System.out.println("회원탈퇴 되었습니다.");
 	}

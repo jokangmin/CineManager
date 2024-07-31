@@ -1,7 +1,5 @@
 package movie.service;
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import cineManager.bean.MovieDTO;
@@ -9,16 +7,22 @@ import cineManager.dao.MovieDAO;
 
 
 public class AddMovie implements Movie{
+	private Scanner scan = new Scanner(System.in);
+	
 	@Override
 	public void execute() {
-		System.out.println();
-		Scanner scan = new Scanner(System.in);
-
 		MovieDAO movieDAO = MovieDAO.getInstance();
 
 		System.out.print("영화번호 입력 : ");
-		int code = scan.nextInt();
-		scan.nextLine(); // 버퍼 비우기
+		int code = 0;
+        try {
+        	code = scan.nextInt();
+        	scan.nextLine(); // 개행 문자 제거
+        } catch (InputMismatchException e) {
+            System.out.println("잘못된 입력입니다. 숫자를 입력해주세요.");
+            scan.nextLine(); // 잘못된 입력 처리 후 개행 문자 제거
+            return; // 입력 오류로 인해 추가 작업 중단
+        }
 		System.out.print("영화제목 입력 : ");
 		String title  = scan.nextLine();
 		System.out.print("영화감독 입력 : ");
