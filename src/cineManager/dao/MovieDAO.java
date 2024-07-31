@@ -348,9 +348,9 @@ public class MovieDAO {
         ResultSet rs = null;
         try {
         	con = getConnection();
-			String sql = "select * from movies where title = ?"; 
+			String sql = "select * from movies where title like ?"; 
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, title);
+			pstmt.setString(1, "%" + title + "%");
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 	            state = true;
