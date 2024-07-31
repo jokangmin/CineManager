@@ -36,6 +36,6 @@ public class DeleteMember implements Member {
 
 		}
 		 memberDAO.delete(id);
-         System.out.println("회원탈퇴 되었습니다.\n");
+         System.out.println("회원탈퇴 되었습s니다.\n");
 	}
 }
