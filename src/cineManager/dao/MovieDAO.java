@@ -346,6 +346,29 @@ public class MovieDAO {
 		}
 		return state;
 	}
+	
+	public String getReleaseDate(int movieCode) {
+        String releaseDate = null;
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            con = getConnection();
+            String sql = "SELECT TO_CHAR(release_date, 'YYYY-MM-DD') FROM movies WHERE code = ?";
+            pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, movieCode);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                releaseDate = rs.getString(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+        	finally_ck(pstmt, con, rs);
+        }
+        return releaseDate;
+    }
+	
 	public int updateWatchedStatus(int movieCode, String userId, char status) {
 	 	Connection con = null;
         PreparedStatement pstmt = null;
