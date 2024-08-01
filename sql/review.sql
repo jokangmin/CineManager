@@ -1,4 +1,4 @@
--- Review 테이블: review_id가 주키 역할을 하며, movie_code와 user_id는 외래키 역할을 합니다.
+-- review_id가 주키, movie_code & user_id : 외래키
 CREATE TABLE review (
     review_id NUMBER PRIMARY KEY,
     movie_code NUMBER,
