@@ -196,10 +196,24 @@ public class MovieDAO {
         return isOwned;
     }
 	
+<<<<<<< HEAD
 	/*
 	 * 
 	 */
 //	수정시 컬럼값 보이는 updatemovie와 dao수정 - 오혜진 /240801
+=======
+	
+	public void updateMovie(String title, int code, String userId) { // 업데이트 메소드
+		Connection con = null;
+        PreparedStatement pstmt = null;
+        try {
+        	con = getConnection();
+        	System.out.println(code + "\t" + title + " 을(를) 수정합니다.");
+        	System.out.println("수정 가능 항목 : 제목, 감독, 장르, 개봉일, 줄거리\n");
+			System.out.print("수정할 항목 : ");
+			String update_item = scan.nextLine();
+			String sql = "";
+>>>>>>> 6623bbadad3845dc5824a47afd59c53d9580e90b
 
 	 public int updateMovie(String updateItem, String updateValue, int code, String title, String userId) {
 	        Connection con = null;
