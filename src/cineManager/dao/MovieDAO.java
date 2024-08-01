@@ -60,7 +60,7 @@ public class MovieDAO {
         PreparedStatement pstmt = null;
         try {
         	con = getConnection();
-        	String sql = "insert into movies values(?, ?, ?, ?, TO_DATE(?, 'YYYY-MM-DD'), ?, ?)";
+        	String sql = "insert into movies values(?, ?, ?, ?, TO_DATE(?, 'YYYY-MM-DD'), ?, ?, ?)";
 			pstmt = con.prepareStatement(sql); // 생성
 
 			// ?에 데이터 매핑
@@ -71,6 +71,7 @@ public class MovieDAO {
 			pstmt.setString(5, movieDTO.getReleaseDate());
 			pstmt.setString(6, movieDTO.getSynopsis());
 			pstmt.setString(7, userId);
+			pstmt.setString(8, movieDTO.getWatched());
 
 			su = pstmt.executeUpdate();
 		} catch (SQLException e) {

@@ -20,6 +20,7 @@ public class AddMovie implements Movie{
 
 		int code = 0;
 		boolean validCode = false;
+		String watched;
 		
 		while (!validCode) {
 			System.out.print("영화번호 입력(6자리) : ");
@@ -55,6 +56,21 @@ public class AddMovie implements Movie{
 		System.out.print("영화줄거리 입력 : ");
 		String synopsis = scan.nextLine();
 
+		while (true) {
+            System.out.print("시청한 영화인가요? (y or n) : ");
+            String input = scan.nextLine().trim().toLowerCase();
+            
+            if (input.equalsIgnoreCase("y")) {
+                watched = "Y";
+                break;
+            } else if (input.equalsIgnoreCase("n")) {
+                watched = "N";
+                break;
+            } else {
+                System.out.println("잘못된 입력입니다. 'y' 또는 'n'만 입력해주세요.");
+            }
+        }
+		
 		MovieDTO movieDTO = new MovieDTO();
 		movieDTO.setCode(code);
 		movieDTO.setTitle(title);		
@@ -62,6 +78,7 @@ public class AddMovie implements Movie{
 		movieDTO.setGenre(genre);
 		movieDTO.setReleaseDate(releaseDate);
 		movieDTO.setSynopsis(synopsis);
+		movieDTO.setWatched(watched); // 시청 여부 설정
 		movieDTO.setUserId(userId); // 로그인한 사용자 ID 설정
 
 		int su = movieDAO.add(movieDTO, userId);
