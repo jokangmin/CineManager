@@ -18,13 +18,6 @@ public class MovieDAO {
 	private static MovieDAO instance = new MovieDAO();
 	Scanner scan = new Scanner(System.in);
 	
-	
-	
-//	private PreparedStatement pstmt;
-//	private ResultSet rs = null;
-
-	
-	
 	public MovieDAO() {
 		try {
 			Class.forName(driver);
@@ -106,7 +99,6 @@ public class MovieDAO {
 						String.format("%-10s", rs.getString("code")) + String.format("%-20s", rs.getString("title"))
 								+ String.format("%-15s", rs.getString("director")) + rs.getDate("release_date"));
 			}
-//			pstmt.executeUpdate();
 			System.out.println();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -163,7 +155,6 @@ public class MovieDAO {
 			else {
 	             System.out.println("해당 영화는 존재하지 않거나 접근 권한이 없습니다.");
 	        }
-//			pstmt.executeUpdate();
 			System.out.println();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -195,8 +186,6 @@ public class MovieDAO {
         }
         return isOwned;
     }
-	
-
 
 	 public int updateMovie(String updateItem, String updateValue, int code, String title, String userId) {
 	        Connection con = null;
@@ -265,7 +254,6 @@ public class MovieDAO {
 	        }
 	        return result;
 	    }
-//	 테스트중
 
 	public void deleteMovie(String title, int code, String userId) {
 		Connection con = null;
@@ -305,7 +293,6 @@ public class MovieDAO {
 						rs.getDate("release_date") + "\t" +
 						rs.getString("synopsis"));
 			}
-//			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -328,7 +315,6 @@ public class MovieDAO {
 				int count = rs.getInt(1);
 				state = (count > 0); // 코드가 존재하면 true, 그렇지 않으면 false
 			}
-//			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -359,4 +345,28 @@ public class MovieDAO {
 		}
 		return state;
 	}
+	public int updateWatchedStatus(int movieCode, String userId, char status) {
+	 	Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int result = 0;
+        String sql = "UPDATE movies SET watched = ? WHERE code = ? AND user_id = ?";
+
+        try {
+            con = getConnection();
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, String.valueOf(status));
+            pstmt.setInt(2, movieCode);
+            pstmt.setString(3, userId);
+
+            result = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+        	finally_ck(pstmt, con, null);
+        }
+        return result;
+    }
+	
+	
 }	
