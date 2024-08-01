@@ -196,24 +196,7 @@ public class MovieDAO {
         return isOwned;
     }
 	
-<<<<<<< HEAD
-	/*
-	 * 
-	 */
-//	수정시 컬럼값 보이는 updatemovie와 dao수정 - 오혜진 /240801
-=======
-	
-	public void updateMovie(String title, int code, String userId) { // 업데이트 메소드
-		Connection con = null;
-        PreparedStatement pstmt = null;
-        try {
-        	con = getConnection();
-        	System.out.println(code + "\t" + title + " 을(를) 수정합니다.");
-        	System.out.println("수정 가능 항목 : 제목, 감독, 장르, 개봉일, 줄거리\n");
-			System.out.print("수정할 항목 : ");
-			String update_item = scan.nextLine();
-			String sql = "";
->>>>>>> 6623bbadad3845dc5824a47afd59c53d9580e90b
+
 
 	 public int updateMovie(String updateItem, String updateValue, int code, String title, String userId) {
 	        Connection con = null;
@@ -252,13 +235,14 @@ public class MovieDAO {
 	            pstmt.setString(2, title);
 	            pstmt.setString(3, userId);
 
-	            // SQL 쿼리와 매개변수를 출력
-	            System.out.println("Executing SQL: " + checkSql);
-	            System.out.println("With parameters: [" + code + ", " + title + ", " + userId + "]");
+	            // SQL 쿼리와 매개변수를 출력 테스트
+	        
+//	            System.out.println("Executing SQL: " + checkSql);
+//	            System.out.println("With parameters: [" + code + ", " + title + ", " + userId + "]");
 
 	            ResultSet rs = pstmt.executeQuery();
 	            if (!rs.next()) {
-	                System.out.println("조건에 맞는 데이터가 없습니다. 업데이트를 중단합니다.");
+	                System.out.println("조건에 맞는 데이터가 없습니다. ");
 	                return 0;
 	            }
 
@@ -268,9 +252,9 @@ public class MovieDAO {
 	            pstmt.setString(3, title);
 	            pstmt.setString(4, userId);
 
-	            // SQL 쿼리와 매개변수를 출력
-	            System.out.println("Executing SQL: " + sql);
-	            System.out.println("With parameters: [" + updateValue + ", " + code + ", " + title + ", " + userId + "]");
+	            // SQL 쿼리와 매개변수를 출력 예외처리 테스트 
+//	            System.out.println("Executing SQL: " + sql);
+//	            System.out.println("With parameters: [" + updateValue + ", " + code + ", " + title + ", " + userId + "]");
 
 	            result = pstmt.executeUpdate();
 	        } catch (SQLException e) {
