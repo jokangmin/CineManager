@@ -196,80 +196,78 @@ public class MovieDAO {
         return isOwned;
     }
 	
-	
-	public void updateMovie(String title, int code, String userId) { // 업데이트 메소드
-		Connection con = null;
-        PreparedStatement pstmt = null;
-        try {
-        	con = getConnection();
-        	System.out.println(code + "\t" + title + " 을(를) 수정합니다.\n");
-			System.out.print("수정할 항목 : ");
-			String update_item = scan.nextLine();
-			String sql = "";
+	/*
+	 * 
+	 */
+//	수정시 컬럼값 보이는 updatemovie와 dao수정 - 오혜진 /240801
 
-			if (update_item.contains("제목")) {
-				sql = "update movies set title = ? where code = ? and title = ? and user_id = ?";
-				System.out.print("새로운 제목 : ");
-				String update_title = scan.nextLine();
-				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, update_title);
-				pstmt.setInt(2, code);
-				pstmt.setString(3, title);
-				pstmt.setString(4, userId);
-			}
+	 public int updateMovie(String updateItem, String updateValue, int code, String title, String userId) {
+	        Connection con = null;
+	        PreparedStatement pstmt = null;
+	        int result = 0;
+	        String sql = "";
 
-			else if (update_item.contains("감독")) {
-				sql = "update movies set director = ? where code = ? and title = ? and user_id = ?";
-				System.out.print("새로운 감독 : ");
-				String update_director = scan.nextLine();
-				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, update_director);
-				pstmt.setInt(2, code);
-				pstmt.setString(3, title);
-				pstmt.setString(4, userId);
-			}
+	        switch (updateItem) {
+	            case "제목":
+	                sql = "UPDATE movies SET title = ? WHERE code = ? AND title = ? AND user_id = ?";
+	                break;
+	            case "감독":
+	                sql = "UPDATE movies SET director = ? WHERE code = ? AND title = ? AND user_id = ?";
+	                break;
+	            case "장르":
+	                sql = "UPDATE movies SET genre = ? WHERE code = ? AND title = ? AND user_id = ?";
+	                break;
+	            case "개봉일":
+	                sql = "UPDATE movies SET release_date = TO_DATE(?, 'YYYY-MM-DD') WHERE code = ? AND title = ? AND user_id = ?";
+	                break;
+	            case "줄거리":
+	                sql = "UPDATE movies SET synopsis = ? WHERE code = ? AND title = ? AND user_id = ?";
+	                break;
+	            default:
+	                System.out.println("잘못된 항목입니다.");
+	                return 0;
+	        }
 
-			else if (update_item.contains("장르")) {
-				sql = "update movies set genre = ? where code = ? and title = ? and user_id = ?";
-				System.out.print("새로운 장르 : ");
-				String update_genre = scan.nextLine();
-				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, update_genre);
-				pstmt.setInt(2, code);
-				pstmt.setString(3, title);
-				pstmt.setString(4, userId);
-			}
+	        try {
+	            con = getConnection();
 
-			else if (update_item.contains("개봉일")) {
-				sql = "update movies set release_date = TO_DATE(?, 'YYYY-MM-DD') where code = ? and title = ? and user_id = ?";
-				System.out.print("새로운 개봉일(yyyy-MM-dd) : ");
-				String update_date = scan.nextLine();
-				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, update_date);
-				pstmt.setInt(2, code);
-				pstmt.setString(3, title);
-				pstmt.setString(4, userId);
-			}
+	            // 조건에 맞는 데이터가 있는지 확인하는 select 쿼리
+	            String checkSql = "SELECT * FROM movies WHERE code = ? AND title = ? AND user_id = ?";
+	            pstmt = con.prepareStatement(checkSql);
+	            pstmt.setInt(1, code);
+	            pstmt.setString(2, title);
+	            pstmt.setString(3, userId);
 
-			else if (update_item.contains("줄거리")) {
-				sql = "update movies set synopsis = ? where code = ? and title = ? and user_id = ?";
-				System.out.print("새로운 줄거리 : ");
-				String update_synopsis = scan.nextLine();
-				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, update_synopsis);
-				pstmt.setInt(2, code);
-				pstmt.setString(3, title);
-				pstmt.setString(4, userId);
-			}
-			pstmt.executeUpdate();
-			System.out.println("영화 '" + title + "' 이(가) 수정되었습니다.\n");
+	            // SQL 쿼리와 매개변수를 출력
+	            System.out.println("Executing SQL: " + checkSql);
+	            System.out.println("With parameters: [" + code + ", " + title + ", " + userId + "]");
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			finally_ck(pstmt, con, null);
-		}
-	}
+	            ResultSet rs = pstmt.executeQuery();
+	            if (!rs.next()) {
+	                System.out.println("조건에 맞는 데이터가 없습니다. 업데이트를 중단합니다.");
+	                return 0;
+	            }
+
+	            pstmt = con.prepareStatement(sql);
+	            pstmt.setString(1, updateValue);
+	            pstmt.setInt(2, code);
+	            pstmt.setString(3, title);
+	            pstmt.setString(4, userId);
+
+	            // SQL 쿼리와 매개변수를 출력
+	            System.out.println("Executing SQL: " + sql);
+	            System.out.println("With parameters: [" + updateValue + ", " + code + ", " + title + ", " + userId + "]");
+
+	            result = pstmt.executeUpdate();
+	        } catch (SQLException e) {
+	            System.out.println("SQL 예외 발생: " + e.getMessage());
+	            e.printStackTrace();
+	        } finally {
+	            finally_ck(pstmt, con, null);
+	        }
+	        return result;
+	    }
+//	 테스트중
 
 	public void deleteMovie(String title, int code, String userId) {
 		Connection con = null;
@@ -357,10 +355,10 @@ public class MovieDAO {
 	        }
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			e.printStackTrace();	
 		}finally {
 			finally_ck(pstmt, con, rs);
 		}
 		return state;
 	}
-}
+}	

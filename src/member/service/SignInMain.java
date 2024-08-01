@@ -7,6 +7,7 @@ import movie.service.AddMovie;
 import movie.service.DeleteMovie;
 import movie.service.SelectMovie;
 import movie.service.UpdateMovie;
+import review.service.ReviewMain;
 
 public class SignInMain implements Member {
 	private Scanner scan = new Scanner(System.in);
@@ -24,9 +25,10 @@ public class SignInMain implements Member {
             System.out.println("2. 영화 조회");
             System.out.println("3. 영화 수정");
             System.out.println("4. 영화 삭제");
-            System.out.println("5. 회원정보 수정");
-            System.out.println("6. 회원 탈퇴");
-            System.out.println("7. 로그아웃");
+            System.out.println("5. 영화 후기");
+            System.out.println("6. 회원정보 수정");
+            System.out.println("7. 회원 탈퇴");
+            System.out.println("8. 로그아웃");
             System.out.println("************************");
             System.out.print("번호 입력 : ");
             int num;
@@ -53,14 +55,20 @@ public class SignInMain implements Member {
                 case 4:
                     new DeleteMovie(userId).execute(); // 로그인한 사용자 ID 전달
                     break;
+                    
+                    //오혜진 리뷰 추가 240801 오혜진 작성
                 case 5:
+                	new ReviewMain(userId).exeute();
+                	break;
+                	//
+                case 6:
                     new UpdateMember().execute();
                     break;
-                case 6:
+                case 7:
                     new DeleteMember().execute();
                     return; // 조강민 08/01 수정 
                     //break;
-                case 7:
+                case 8:
                     System.out.println("로그아웃되었습니다.\n");
                     return; // 로그아웃 시 메뉴를 종료하고 IndexMain으로 돌아간다
                 default:
