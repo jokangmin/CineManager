@@ -58,7 +58,8 @@ public class SignInMain implements Member {
                     break;
                 case 6:
                     new DeleteMember().execute();
-                    break;
+                    return; // 조강민 08/01 수정 
+                    //break;
                 case 7:
                     System.out.println("로그아웃되었습니다.\n");
                     return; // 로그아웃 시 메뉴를 종료하고 IndexMain으로 돌아간다
