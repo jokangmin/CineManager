@@ -26,14 +26,18 @@ public class AddMovie implements Movie{
 	        try {
 	        	code = scan.nextInt();
 	        	scan.nextLine(); // 개행 문자 제거
-	        	
-	        	// DB에 존재하는 code 인지 확인
-	        	if (movieDAO.codeCheck(code)) {
-	        		System.out.println("이미 등록된 번호입니다. 다른 번호를 입력하세요.");
-	        	}
-	        	else {
-                    validCode = true; // 존재하지 않는 유효한 영화 번호 입력받으면 while문 종료
+	
+	        	if (code >= 100000 && code <= 999999) { //6자리만 입력되게 수정 // 숫자형이라 좀 무식하긴한데 했습니다...
+	        		if (movieDAO.codeCheck(code)) { // DB에 존재하는 code 인지 확인
+		        		System.out.println("이미 등록된 번호입니다. 다른 번호를 입력하세요.");
+		        	}
+		        	else {
+	                    validCode = true; // 존재하지 않는 유효한 영화 번호 입력받으면 while문 종료
+	                }
                 }
+	        	else {
+	        		System.out.println("6자리의 번호를 입력해주세요.");
+	        	}
 	        } catch (InputMismatchException e) {
 	            System.out.println("잘못된 입력입니다. 숫자를 입력해주세요.");
 	            scan.nextLine(); // 잘못된 입력 처리 후 개행 문자 제거
