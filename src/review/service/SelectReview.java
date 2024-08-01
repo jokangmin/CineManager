@@ -1,5 +1,7 @@
 package review.service;
 
+import cineManager.dao.ReviewDAO;
+
 public class SelectReview implements Review {
   
 	private String userId;
@@ -9,8 +11,8 @@ public class SelectReview implements Review {
     }
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
-		
+		ReviewDAO reviewDAO = ReviewDAO.getInstance();
+		reviewDAO.selectReview();
 	}
 
 

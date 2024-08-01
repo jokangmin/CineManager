@@ -68,4 +68,30 @@ public class ReviewDAO {
         return result;
     }
 	
+	public void selectReview() {
+        try {
+        	con = getConnection();
+        	String sql = "SELECT m.title AS 제목, m.director AS 감독, r.review AS 리뷰,r.user_id AS 유저아이디, TO_CHAR(r.logdate, 'YYYY-MM-DD hh:mm:ss') AS 등록날짜 FROM review r JOIN movies m ON r.movie_code = m.code ORDER BY m.title ASC , r.user_id DESC";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (!rs.isBeforeFirst()) {
+	            System.out.println("조회된 데이터가 없습니다.");
+	        }
+			while (rs.next()) {
+				System.out.println("-----------------------------------------\n" +
+									"< " + rs.getString("제목") + " > : " + rs.getString("감독")+ "\n" +
+									"-----------------------------------------\n"+
+									"리뷰 : " + rs.getString("리뷰") + "\n" +
+									"-----------------------------------------\n"+
+									rs.getString("유저아이디") + "/" + rs.getString("등록날짜")+ "\n" +
+									"-----------------------------------------\n \n");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(con, pstmt, rs);
+		}
+	}
+	
 }
