@@ -202,7 +202,8 @@ public class MovieDAO {
         PreparedStatement pstmt = null;
         try {
         	con = getConnection();
-        	System.out.println(code + "\t" + title + " 을(를) 수정합니다.\n");
+        	System.out.println(code + "\t" + title + " 을(를) 수정합니다.");
+        	System.out.println("수정 가능 항목 : 제목, 감독, 장르, 개봉일, 줄거리\n");
 			System.out.print("수정할 항목 : ");
 			String update_item = scan.nextLine();
 			String sql = "";
