@@ -67,9 +67,7 @@ public class MemberDAO {
 		String sql = "select * from members where id=?";
 
 		try {
-			getConnection(); // 연결 초기화
-			pstmt = con.prepareStatement(sql);
-			prepareStatement(sql, id); // ?에 Data Mapping
+			pstmt = prepareStatement(sql, id); // ?에 Data Mapping
 			rs = pstmt.executeQuery();
 			exists = rs.next();
 		} catch (SQLException e) {
@@ -83,11 +81,11 @@ public class MemberDAO {
 
 	public void insert(MemberDTO memberDTO) { // 회원가입
 		int su = 0;
-		String sql = "insert into members values (?, ?, ?, ?)";
+		String sql = "insert into members (name, id, pwd, phone) values (?, ?, ?, ?)";
 
 		try {
 			// ?에 Data Mapping
-			prepareStatement(sql, 
+			pstmt = prepareStatement(sql, 
 					memberDTO.getName(), 
 					memberDTO.getId(), 
 					memberDTO.getPwd(), 
@@ -106,7 +104,7 @@ public class MemberDAO {
 		String sql = "select * from members where id=? and pwd=?";
 
 		try {
-			prepareStatement(sql, id, pwd); // ?에 Data Mapping
+			pstmt = prepareStatement(sql, id, pwd); // ?에 Data Mapping
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				name = rs.getString("name");
@@ -125,7 +123,7 @@ public class MemberDAO {
 		MemberDTO memberDTO = null;
 		String sql = "select * from members where id=?";
 		try {
-			prepareStatement(sql, id); // ?에 Data Mapping
+			pstmt = prepareStatement(sql, id); // ?에 Data Mapping
 			rs = pstmt.executeQuery();
 			System.out.println("이름" + "\t" +
                     "id" + "\t" +
@@ -153,7 +151,7 @@ public class MemberDAO {
 
 		try {
 			// ?에 Data Mapping
-			prepareStatement(sql, map.get("name"), map.get("pwd"), map.get("phone"), map.get("id"));
+			pstmt = prepareStatement(sql, map.get("name"), map.get("pwd"), map.get("phone"), map.get("id"));
 			su = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -169,7 +167,7 @@ public class MemberDAO {
 		String sql = "select * from members where id=? and pwd=?";
 
 		try {
-			prepareStatement(sql, id, pwd); // ?에 Data Mapping
+			pstmt = prepareStatement(sql, id, pwd); // ?에 Data Mapping
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				memberDTO = new MemberDTO(
@@ -193,7 +191,7 @@ public class MemberDAO {
 		getConnection(); // SQL; database 연결(접속)
 		String sql = "delete from members where id=?";
 		try {
-			prepareStatement(sql, id); // ?에 Data Mapping
+			pstmt = prepareStatement(sql, id); // ?에 Data Mapping
 			su = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
