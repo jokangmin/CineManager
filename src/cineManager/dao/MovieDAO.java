@@ -263,7 +263,7 @@ public class MovieDAO {
         PreparedStatement pstmt = null;
         try {
         	con = getConnection();
-        	String sql = "delete movies where code = ? and title like ? and user_id = ?";
+        	String sql = "delete from movies where code = ? and title like ? and user_id = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, code);
 			pstmt.setString(2, "%" + title + "%");
@@ -283,9 +283,10 @@ public class MovieDAO {
         ResultSet rs = null;
         try {
         	con = getConnection();
-        	String sql = "select * from movies where title like and user_id = ?";
+        	String sql = "select * from movies where title like ? and user_id = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1,"%" + title + "%");
+			pstmt.setString(2, userId);
 			rs = pstmt.executeQuery();
 			System.out.println("영화번호\t영화제목\t영화감독\t영화장르\t영화개봉일\t영화줄거리");
 			while(rs.next()) {
@@ -340,7 +341,6 @@ public class MovieDAO {
 			if (rs.next()) {
 	            state = true;
 	        }
-			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();	
 		}finally {
