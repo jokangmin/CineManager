@@ -22,7 +22,7 @@ public class DeleteMovie implements Movie{
 			movieDAO.selectTitleSummary(title, userId);
 		}
 		else {
-			System.out.println("영화 제목이 올바르지 않습니다.");
+			System.out.println("영화 제목이 올바르지 않습니다.\n");
 			return;
 		}
 		
@@ -34,7 +34,7 @@ public class DeleteMovie implements Movie{
 			movieDAO.deleteMovie(title, code, userId);// 사용자 ID를 확인하며 영화 삭제
 		}
 		else {
-			System.out.println("올바른 code 값이 아닙니다.");
+			System.out.println("올바른 code 값이 아닙니다.\n");
 			return;
 		}
 	}

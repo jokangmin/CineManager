@@ -36,7 +36,7 @@ public class AddReview implements Review{
             return;
         }
         
-     // 영화 개봉 날짜 확인
+        // 영화 개봉 날짜 확인
         String releaseDateStr = movieDAO.getReleaseDate(movieCode);
         if (releaseDateStr == null) {
             System.out.println("영화가 존재하지 않습니다.\n");
@@ -49,12 +49,12 @@ public class AddReview implements Review{
         try {
             releaseDate = sdf.parse(releaseDateStr);
         } catch (ParseException e) {
-            System.out.println("개봉일을 처리하는 데 문제가 발생했습니다.");
+            System.out.println("개봉일을 처리하는 데 문제가 발생했습니다.\n");
             return;
         }
         
         // 현재 날짜
-        Date currentDate = new Date(movieCode);
+        Date currentDate = new Date(System.currentTimeMillis());
         
         // 개봉 날짜가 현재 날짜보다 늦으면 예외 처리
         if (releaseDate.after(currentDate)) {
@@ -62,10 +62,33 @@ public class AddReview implements Review{
             return;
         }
         
+        // 이미 후기가 등록된 영화인지 확인
+        boolean reviewExists = reviewDAO.checkReviewExists(movieCode, userId);
+        
+        if (reviewExists) { // 이미 후기가 등록된 영화일 경우
+        	while (true) {
+        		System.out.print("이미 후기가 등록된 영화입니다. 후기를 수정하시겠습니까? (y or n) : ");
+        		String input = scan.nextLine().trim().toLowerCase();
+        		
+        		
+        		if(input.equals("y")) {
+        			new UpdateReview(userId).execute();
+        			return; // 후기 수정 후 AddReview 종료
+        		}
+        		else if (input.equals("n")) {
+        			System.out.println();
+        			return; // ReviewMain 으로 돌아가기
+        		}
+        		else {
+        			System.out.println("잘못된 입력입니다. 'y' 또는 'n'만 입력해주세요.\n");
+        		}
+        	}
+        }
+        
         System.out.print("후기 작성 : ");
         String reviewText = scan.nextLine();
         
-     // 영화의 watched 컬럼을 'Y'로 업데이트
+        // 영화의 watched 컬럼을 'Y'로 업데이트
         movieDAO.updateWatchedStatus(movieCode, userId, 'Y');
         
         ReviewDTO reviewDTO = new ReviewDTO();

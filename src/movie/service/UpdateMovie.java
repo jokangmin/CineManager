@@ -89,7 +89,7 @@ public class UpdateMovie implements Movie {
 				System.out.println("영화 수정에 실패했습니다.\n");
 			}
 		} else {
-			System.out.println("올바른 code 값이 아닙니다./n");
+			System.out.println("올바른 code 값이 아닙니다.\n");
 		}
 	}
 }

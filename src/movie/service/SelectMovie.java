@@ -49,10 +49,10 @@ public class SelectMovie implements Movie{
                     System.out.println();
                     movieDAO.selectDetail(code, userId); // 사용자 ID를 통해 본인 영화만 조회
                 } else {
-                    System.out.println("잘못된 선택입니다. 다시 선택해주세요.");
+                    System.out.println("잘못된 선택입니다. 다시 선택해주세요.\n");
                 }
             } catch (Exception e) {
-                System.out.println("잘못된 입력입니다. 숫자를 입력해주세요.");
+                System.out.println("잘못된 입력입니다. 숫자를 입력해주세요.\n");
                 scan.nextLine(); // 잘못된 입력 처리 후 개행 문자 제거
             }
 		}

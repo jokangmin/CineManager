@@ -46,9 +46,30 @@ public class ReviewDAO {
 		}
 	}
 	
+	public boolean checkReviewExists(int movieCode, String userId) {
+		boolean exists = false;
+		String sql = "select count(*) from review where movie_code = ? and user_id =?";
+		
+		try {
+			con = getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, movieCode);
+			pstmt.setString(2, userId);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+	            exists = (rs.getInt(1) > 0); // 리뷰가 존재하면 true, 아니면 false
+	        }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+	        closeAll(con, pstmt, rs);
+	    }
+		return exists;
+	}
 	
 	public int addReview(ReviewDTO reviewDTO) {
-        int result = 0;
+        int su = 0;
         String sql = "INSERT INTO review (review_id, movie_code, user_id, review, logdate) VALUES (review_id_seq.NEXTVAL, ?, ?, ?, ?)";
 
         try {
@@ -59,13 +80,13 @@ public class ReviewDAO {
             pstmt.setString(3, reviewDTO.getReview());
             pstmt.setDate(4, reviewDTO.getLogDate());
 
-            result = pstmt.executeUpdate();
+            su = pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             closeAll(con, pstmt, rs);
         }
-        return result;
+        return su;
     }
 	
 	public void selectReview() {

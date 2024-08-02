@@ -60,10 +60,10 @@ public class AddMovie implements Movie{
             System.out.print("시청한 영화인가요? (y or n) : ");
             String input = scan.nextLine().trim().toLowerCase();
             
-            if (input.equalsIgnoreCase("y")) {
+            if (input.equals("y")) {
                 watched = "Y";
                 break;
-            } else if (input.equalsIgnoreCase("n")) {
+            } else if (input.equals("n")) {
                 watched = "N";
                 break;
             } else {
