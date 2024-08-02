@@ -35,8 +35,9 @@ public class SelectMovie implements Movie{
                 else if (menu_num == 2) {
                     System.out.print("영화 제목 검색 : ");
                     String title = scan.nextLine();
-                    System.out.println();
-                    if(movieDAO.titleCheck(title)) {
+                    
+                    if(movieDAO.titleCheck(title, userId)) {
+                    	System.out.println();
             			movieDAO.selectTitleSummary(title, userId); // 사용자 ID를 통해 본인 영화만 조회
             		}
             		else {

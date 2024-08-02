@@ -18,11 +18,11 @@ public class DeleteMovie implements Movie{
 		
 		System.out.print("삭제할 영화 제목 : ");
 		String title = scan.nextLine();
-		if(movieDAO.titleCheck(title)) {
+		if(movieDAO.titleCheck(title, userId)) {
 			movieDAO.selectTitleSummary(title, userId);
 		}
 		else {
-			System.out.println("영화 제목이 올바르지 않습니다.\n");
+			System.out.println("영화 제목 : " + title + " 이(가) 존재하지 않습니다.\n");
 			return;
 		}
 		
