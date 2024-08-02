@@ -17,12 +17,12 @@ public class SelectMovie implements Movie{
 		int menu_num = 0;
 		MovieDAO movieDAO = MovieDAO.getInstance();
 		while(true) {
-			System.out.println("-----------------------");
-			System.out.println("1. 전체 영화 목록 조회 ");
-			System.out.println("2. 검색 영화 상세 정보 조회 ");
-			System.out.println("3. 뒤로가기 ");
-			System.out.println("-----------------------");
-			System.out.print("번호 선택 : ");
+			System.out.println("-----------------------------------------");
+			System.out.println("	1. 전체 영화 목록 조회 ");
+			System.out.println("	2. 검색 영화 상세 정보 조회 ");
+			System.out.println("	3. 뒤로가기 ");
+			System.out.println("-----------------------------------------");
+			System.out.print("번호 입력 : ");
 			try {
                 menu_num = scan.nextInt();
                 scan.nextLine(); // 개행 문자 제거

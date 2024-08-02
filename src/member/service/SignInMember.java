@@ -31,7 +31,7 @@ public class SignInMember implements Member {
 
 			if (name == null){
 				System.out.println("아이디 또는 비밀번호가 맞지 않습니다.");
-				System.out.println("-------------------------------------------------");
+				System.out.println("-----------------------------------------");
 			}
 			else {
 				userId = id; // 로그인한 사용자의 ID 저장

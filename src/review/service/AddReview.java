@@ -39,7 +39,7 @@ public class AddReview implements Review{
      // 영화 개봉 날짜 확인
         String releaseDateStr = movieDAO.getReleaseDate(movieCode);
         if (releaseDateStr == null) {
-            System.out.println("영화가 존재하지 않습니다.");
+            System.out.println("영화가 존재하지 않습니다.\n");
             return;
         }
         
@@ -76,9 +76,9 @@ public class AddReview implements Review{
 
         int result = reviewDAO.addReview(reviewDTO);
         if (result > 0) {
-            System.out.println("후기가 성공적으로 작성되었습니다.");
+            System.out.println("후기가 성공적으로 작성되었습니다.\n");
         } else {
-            System.out.println("후기 작성에 실패했습니다.");
+            System.out.println("후기 작성에 실패했습니다.\n");
         }
 		
 	}

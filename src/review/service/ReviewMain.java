@@ -19,13 +19,13 @@ public class ReviewMain {
 	
 	public void exeute() {
 		while (true) {
-			System.out.println("-----------------------");
-			System.out.println("1. 후기 작성  ");
-			System.out.println("2. 후기 조회 ");
-			System.out.println("3. 후기 수정 ");
-			System.out.println("4. 후기 삭제 ");
-			System.out.println("5. 뒤로 가기  ");
-			System.out.println("-----------------------");
+			System.out.println("-----------------------------------------");
+			System.out.println("	1. 후기 작성  ");
+			System.out.println("	2. 후기 조회 ");
+			System.out.println("	3. 후기 수정 ");
+			System.out.println("	4. 후기 삭제 ");
+			System.out.println("	5. 뒤로 가기  ");
+			System.out.println("-----------------------------------------");
 			System.out.print("번호 선택 : ");
 			int num;
 			try {

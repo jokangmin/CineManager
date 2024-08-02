@@ -20,16 +20,16 @@ public class SignInMain implements Member {
     @Override
     public void execute() {
         while (true) {
-        	System.out.println("************************");
-            System.out.println("1. 영화 추가");
-            System.out.println("2. 영화 조회");
-            System.out.println("3. 영화 수정");
-            System.out.println("4. 영화 삭제");
-            System.out.println("5. 영화 후기");
-            System.out.println("6. 회원정보 수정");
-            System.out.println("7. 회원 탈퇴");
-            System.out.println("8. 로그아웃");
-            System.out.println("************************");
+        	System.out.println("*****************************************");
+            System.out.println("	1. 영화 추가");
+            System.out.println("	2. 영화 조회");
+            System.out.println("	3. 영화 수정");
+            System.out.println("	4. 영화 삭제");
+            System.out.println("	5. 영화 후기");
+            System.out.println("	6. 회원정보 수정");
+            System.out.println("	7. 회원 탈퇴");
+            System.out.println("	8. 로그아웃");
+            System.out.println("*****************************************");
             System.out.print("번호 입력 : ");
             int num;
             try {

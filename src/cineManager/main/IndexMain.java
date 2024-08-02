@@ -13,11 +13,11 @@ public class IndexMain {
 		Member member = null;
 
 		while(true) {
-			System.out.println("************************");
+			System.out.println("*****************************************");
 			System.out.println("	1. 회원가입");
 			System.out.println("	2. 로그인");
 			System.out.println("	3. CineManager 종료");
-			System.out.println("************************");
+			System.out.println("*****************************************");
 			System.out.print("번호 입력 : ");
 			num = scan.nextInt();
 			scan.nextLine(); // 개행 문자 제거

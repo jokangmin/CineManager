@@ -12,48 +12,4 @@ public class MovieDTO {
     private String synopsis;
     private String watched; // 시청 여부
     private String userId; // 로그인한 id
-    
-//	public int getCode() {
-//		return code;
-//	}
-//	public void setCode(int code) {
-//		this.code = code;
-//	}
-//	public String getTitle() {
-//		return title;
-//	}
-//	public void setTitle(String title) {
-//		this.title = title;
-//	}
-//	public String getDirector() {
-//		return director;
-//	}
-//	public void setDirector(String director) {
-//		this.director = director;
-//	}
-//	public String getGenre() {
-//		return genre;
-//	}
-//	public void setGenre(String genre) {
-//		this.genre = genre;
-//	}
-//	public String getReleaseDate() {
-//		return releaseDate;
-//	}
-//	public void setReleaseDate(String releaseDate) {
-//		this.releaseDate = releaseDate;
-//	}
-//	public String getSynopsis() {
-//		return synopsis;
-//	}
-//	public void setSynopsis(String synopsis) {
-//		this.synopsis = synopsis;
-//	}
-//	public String getUserId() {
-//		return userId;
-//	}
-//	public void setUserId(String userId) {
-//		this.userId = userId;
-//	}
-//	
 }

@@ -93,6 +93,8 @@ public class MovieDAO {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, userId);
 			rs = pstmt.executeQuery();
+			
+			System.out.println("******** 조회 결과 ********");
 			System.out.println(String.format("%-10s", "영화번호") + String.format("%-20s", "영화제목")
 					+ String.format("%-15s", "영화감독") + "영화개봉일");
 			while (rs.next()) {
@@ -144,7 +146,7 @@ public class MovieDAO {
 			pstmt.setString(2, userId);
 			rs = pstmt.executeQuery();
 			
-			System.out.println("*** 조회결과 ***");
+			System.out.println("******** 조회 결과 ********");
 			if (rs.next()) {
 				System.out.println("번호 : " + rs.getInt("code") + "\n" + 
 							 		"제목 : " + rs.getString("title") + "\n" + 
