@@ -263,10 +263,10 @@ public class MovieDAO {
         PreparedStatement pstmt = null;
         try {
         	con = getConnection();
-        	String sql = "delete movies where code = ? and title = ? and user_id = ?";
+        	String sql = "delete movies where code = ? and title like ? and user_id = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, code);
-			pstmt.setString(2, title);
+			pstmt.setString(2, "%" + title + "%");
 			pstmt.setString(3, userId);
 			pstmt.executeUpdate();
 			System.out.println("영화 '" + title + "' 이(가) 삭제되었습니다.\n");
