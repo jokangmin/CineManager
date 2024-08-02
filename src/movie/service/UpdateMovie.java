@@ -3,12 +3,16 @@ package movie.service;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import cineManager.dao.MovieDAO;
-
+import java.util.regex.Pattern;
 
 public class UpdateMovie implements Movie {
 	private Scanner scan = new Scanner(System.in);
 	private String userId; // 로그인한 사용자의 ID	
 	int code;
+	
+	String dateFormat = "\\d{4}-\\d{2}-\\d{2}";
+    Pattern pattern = Pattern.compile(dateFormat);
+	
 	public UpdateMovie(String userId) {
 		this.userId = userId;
 	}
@@ -80,8 +84,26 @@ public class UpdateMovie implements Movie {
 				updateValue = scan.nextLine();
 				break;
 			case "개봉일":
-				System.out.print("새로운 개봉일 (YYYY-MM-DD) : ");
-				updateValue = scan.nextLine();
+				while (true) {
+		            System.out.print("새로운 개봉일 (YYYY-MM-DD) : ");
+		            updateValue = scan.nextLine();
+		            
+		            if (pattern.matcher(updateValue).matches()) {
+		            	String[] parts = updateValue.split("-");
+		                int year = Integer.parseInt(parts[0]);
+		                int month = Integer.parseInt(parts[1]);
+		                int day = Integer.parseInt(parts[2]);
+
+		                if (year >= 1000 && year <= 9999 && month >= 1 && month <= 12 && day >= 1 && day <= 31) {
+		                    break;
+		                } else {
+		                    System.out.println("잘못된 형식입니다. 다시 입력해주세요.");
+		                }
+		            }
+		            else {
+		                System.out.println("잘못된 형식입니다. 다시 입력해주세요.");
+		            }
+		        }
 				break;
 			case "줄거리":
 				System.out.print("새로운 줄거리 : ");
