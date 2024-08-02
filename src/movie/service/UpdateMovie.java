@@ -1,13 +1,14 @@
 package movie.service;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import cineManager.dao.MovieDAO;
 
 
 public class UpdateMovie implements Movie {
 	private Scanner scan = new Scanner(System.in);
-	private String userId; // 로그인한 사용자의 ID
-
+	private String userId; // 로그인한 사용자의 ID	
+	int code;
 	public UpdateMovie(String userId) {
 		this.userId = userId;
 	}
@@ -24,10 +25,14 @@ public class UpdateMovie implements Movie {
 			System.out.println("영화 제목 : " + title + " 이(가) 존재하지 않습니다.\n");
 			return;
 		}
-
-		System.out.print("수정할 영화 번호 : ");
-		int code = scan.nextInt();
-		scan.nextLine();
+		try {
+			System.out.print("수정할 영화 번호 : ");
+			code = scan.nextInt();
+			scan.nextLine();
+		}catch(InputMismatchException e) {
+			System.out.println("6자리 형태의 '숫자'로만 입력해주세요."); //숫자 값만 입력 받게 
+			return;
+		}
 
 		if (movieDAO.codeCheck(code) && movieDAO.isMovieOwnedByUser(code, userId)) {
 			System.out.println(code + "\t" + title + " 을(를) 수정합니다.\n");
