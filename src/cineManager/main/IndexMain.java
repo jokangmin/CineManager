@@ -34,7 +34,7 @@ public class IndexMain {
 					System.out.println("잘못된 선택입니다. 다시 선택해주세요.\n");
 				}
 			}catch(InputMismatchException e) {
-				System.out.println("'숫자'형태만 입력하세요.");
+				System.out.println("'숫자'형태만 입력하세요.\n");
 				scan.nextLine();
 			}
 
