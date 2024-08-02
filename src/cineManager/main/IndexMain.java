@@ -32,7 +32,7 @@ public class IndexMain {
 			} else if (num == 3) {
 				break;
 			} else {
-				System.out.println("\n잘못된 선택입니다. 다시 선택해주세요.\n");
+				System.out.println("잘못된 선택입니다. 다시 선택해주세요.\n");
 			}	
 
 		}
