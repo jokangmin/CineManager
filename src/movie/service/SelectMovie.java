@@ -40,7 +40,7 @@ public class SelectMovie implements Movie{
             			movieDAO.selectTitleSummary(title, userId); // 사용자 ID를 통해 본인 영화만 조회
             		}
             		else {
-            			System.out.println("영화 제목 : " + title + "이(가) 존재하지 않습니다.");
+            			System.out.println("영화 제목 : " + title + "이(가) 존재하지 않습니다.\n");
             			return;
             		}
                     System.out.print("영화 번호 입력 : ");
