@@ -5,7 +5,7 @@ CREATE TABLE review (
     user_id VARCHAR2(30),
     review CLOB,
     logdate DATE,
-    FOREIGN KEY (movie_code) REFERENCES movies(code),
+    FOREIGN KEY (movie_code) REFERENCES movies(code) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES members(id)
 );
 
