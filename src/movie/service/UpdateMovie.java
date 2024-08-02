@@ -39,7 +39,8 @@ public class UpdateMovie implements Movie {
 		}
 
 		if (movieDAO.codeCheck(code) && movieDAO.isMovieOwnedByUser(code, userId)) {
-			System.out.println(code + "\t" + title + " 을(를) 수정합니다.\n");
+			String get_title = movieDAO.getTitle(code, userId); // 8/2 17:11 조강민 추가
+			System.out.println(code + "\t" + get_title + " 을(를) 수정합니다.\n");
 
 			// 영화의 현재 정보를 출력하기 위해 selectDetail 메소드 사용
 			movieDAO.selectDetail(code, userId);
@@ -91,9 +92,9 @@ public class UpdateMovie implements Movie {
 				return;
 			}
 
-			int result = movieDAO.updateMovie(updateItem, updateValue, code, title, userId);
+			int result = movieDAO.updateMovie(updateItem, updateValue, code, get_title, userId);
 			if (result > 0) {
-				System.out.println("영화 '" + title + "' 이(가) 수정되었습니다.\n");
+				System.out.println("영화 '" + get_title + "' 이(가) 수정되었습니다.\n");
 			} else {
 				System.out.println("영화 수정에 실패했습니다.\n");
 			}

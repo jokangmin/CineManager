@@ -276,6 +276,29 @@ public class MovieDAO {
 			finally_ck(pstmt, con, null);
 		}
 	}
+	
+	public String getTitle(int code, String userId) {
+        String title = "";
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            con = getConnection();
+            String sql = "SELECT * FROM movies WHERE code = ? AND user_id = ?";
+            pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, code);
+            pstmt.setString(2, userId);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+               title =rs.getString("title");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+        	finally_ck(pstmt, con, rs);
+        }
+        return title;
+    }
 
 	public void selectTitleMovie(String title, String userId) { // 제목으로 검색해서 출력해주는 메소드
 		Connection con = null;
