@@ -269,7 +269,6 @@ public class MovieDAO {
 			pstmt.setString(2, "%" + title + "%");
 			pstmt.setString(3, userId);
 			pstmt.executeUpdate();
-			System.out.println("영화 '" + title + "' 이(가) 삭제되었습니다.\n");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

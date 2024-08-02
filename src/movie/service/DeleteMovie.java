@@ -31,7 +31,9 @@ public class DeleteMovie implements Movie{
 		scan.nextLine(); // 개행 문자 제거
 		
 		if(movieDAO.codeCheck(code) && movieDAO.isMovieOwnedByUser(code, userId)) {
+			String get_title = movieDAO.getTitle(code, userId);
 			movieDAO.deleteMovie(title, code, userId);// 사용자 ID를 확인하며 영화 삭제
+			System.out.println(code + "\t" + get_title + " 을(를) 삭제했습니다.\n");
 		}
 		else {
 			System.out.println("올바른 code 값이 아닙니다.\n");
