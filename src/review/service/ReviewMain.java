@@ -52,7 +52,7 @@ public class ReviewMain {
 				new DeleteReview(userId).execute(); // 로그인한 사용자 ID 전달
 				break;
 			case 5:
-				System.out.println("메인으로 돌아갑니다.");
+//				System.out.println("메인으로 돌아갑니다.");
 				return;
 			default:
 				System.out.println("잘못된 선택입니다. 다시 선택해주세요.");

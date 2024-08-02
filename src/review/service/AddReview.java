@@ -58,7 +58,7 @@ public class AddReview implements Review{
         
         // 개봉 날짜가 현재 날짜보다 늦으면 예외 처리
         if (releaseDate.after(currentDate)) {
-            System.out.println("후기를 등록할 수 없습니다. 영화 개봉 날짜가 현재 날짜보다 늦습니다.");
+            System.out.println("후기를 등록할 수 없습니다. 영화 개봉 날짜가 현재 날짜보다 늦습니다.\n");
             return;
         }
         
