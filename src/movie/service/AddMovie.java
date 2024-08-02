@@ -2,6 +2,8 @@ package movie.service;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.regex.Pattern;
+
 import cineManager.bean.MovieDTO;
 import cineManager.dao.MovieDAO;
 
@@ -9,7 +11,10 @@ import cineManager.dao.MovieDAO;
 public class AddMovie implements Movie{
 	private Scanner scan = new Scanner(System.in);
 	private String userId; // 로그인한 사용자의 ID
-
+	String releaseDate;
+	String dateFormat = "\\d{4}-\\d{2}-\\d{2}";
+    Pattern pattern = Pattern.compile(dateFormat);
+	
     public AddMovie(String userId) {
         this.userId = userId;
     }
@@ -51,8 +56,26 @@ public class AddMovie implements Movie{
 		String director = scan.nextLine();
 		System.out.print("영화장르 입력 : ");
 		String genre = scan.nextLine();
-        System.out.print("영화개봉일 입력 (형식: yyyy-MM-dd) : ");
-        String releaseDate = scan.nextLine();
+		while (true) {
+            System.out.print("새로운 개봉일 (YYYY-MM-DD) : ");
+            releaseDate = scan.nextLine();
+            
+            if (pattern.matcher(releaseDate).matches()) {
+            	String[] parts = releaseDate.split("-");
+                int year = Integer.parseInt(parts[0]);
+                int month = Integer.parseInt(parts[1]);
+                int day = Integer.parseInt(parts[2]);
+
+                if (year >= 1000 && year <= 9999 && month >= 1 && month <= 12 && day >= 1 && day <= 31) {
+                    break;
+                } else {
+                    System.out.println("잘못된 형식입니다. 다시 입력해주세요.");
+                }
+            }
+            else {
+                System.out.println("잘못된 형식입니다. 다시 입력해주세요.");
+            }
+        }
 		System.out.print("영화줄거리 입력 : ");
 		String synopsis = scan.nextLine();
 
