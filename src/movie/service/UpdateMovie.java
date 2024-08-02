@@ -19,17 +19,21 @@ public class UpdateMovie implements Movie {
 		System.out.print("수정할 영화 제목 : ");
 		String title = scan.nextLine();
 
-		if (movieDAO.titleCheck(title)) {
-			movieDAO.selectTitleSummary(title, userId);
-		} else {
-			System.out.println("영화 제목 : " + title + " 이(가) 존재하지 않습니다.\n");
-			return;
-		}
+		// 영화 제목 존재 여부 확인
+	    if (!movieDAO.titleCheck(title, userId)) {
+	        System.out.println("영화 제목 : " + title + " 이(가) 존재하지 않습니다.\n");
+	        return; // 영화 제목이 존재하지 않으면 수정 작업을 종료
+	    }
+
+	    // 영화 제목이 존재하는 경우, 해당 제목의 영화 목록을 출력
+	    movieDAO.selectTitleSummary(title, userId);
+	    
+	    int code;
 		try {
 			System.out.print("수정할 영화 번호 : ");
 			code = scan.nextInt();
 			scan.nextLine();
-		}catch(InputMismatchException e) {
+		} catch(InputMismatchException e) {
 			System.out.println("6자리 형태의 '숫자'로만 입력해주세요."); //숫자 값만 입력 받게 
 			return;
 		}

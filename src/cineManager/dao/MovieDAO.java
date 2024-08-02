@@ -349,6 +349,29 @@ public class MovieDAO {
 		return state;
 	}
 	
+	public boolean titleCheck(String title, String userId) { // movie.service 함수에서 사용
+		boolean state = false;
+		Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+        	con = getConnection();
+			String sql = "select * from movies where title like ? and user_id = ?"; 
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%" + title + "%");
+			pstmt.setString(2, userId);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+	            state = true;
+	        }
+		} catch (SQLException e) {
+			e.printStackTrace();	
+		}finally {
+			finally_ck(pstmt, con, rs);
+		}
+		return state;
+	}
+	
 	public String getReleaseDate(int movieCode) {
         String releaseDate = null;
         Connection con = null;
