@@ -65,25 +65,25 @@ public class AddReview implements Review{
         // 이미 후기가 등록된 영화인지 확인
         boolean reviewExists = reviewDAO.checkReviewExists(movieCode, userId);
         
-        if (reviewExists) { // 이미 후기가 등록된 영화일 경우
-        	while (true) {
-        		System.out.print("이미 후기가 등록된 영화입니다. 후기를 수정하시겠습니까? (y or n) : ");
-        		String input = scan.nextLine().trim().toLowerCase();
-        		
-        		
-        		if(input.equals("y")) {
-        			new UpdateReview(userId).execute();
-        			return; // 후기 수정 후 AddReview 종료
-        		}
-        		else if (input.equals("n")) {
-        			System.out.println();
-        			return; // ReviewMain 으로 돌아가기
-        		}
-        		else {
-        			System.out.println("잘못된 입력입니다. 'y' 또는 'n'만 입력해주세요.\n");
-        		}
-        	}
-        }
+		if (reviewExists) { // 이미 후기가 등록된 영화일 경우
+			while (true) {
+				System.out.print("이미 후기가 등록된 영화입니다. 후기를 수정하시겠습니까? (y or n) : ");
+				String input = scan.nextLine().trim().toLowerCase();
+				
+				
+				if(input.equals("y")) {
+					new UpdateReview(userId).execute();
+					return; // 후기 수정 후 AddReview 종료
+				}
+				else if (input.equals("n")) {
+					System.out.println();
+					return; // ReviewMain 으로 돌아가기
+				}
+				else {
+					System.out.println("잘못된 입력입니다. 'y' 또는 'n'만 입력해주세요.\n");
+				}
+			}
+		}
         
         System.out.print("후기 작성 : ");
         String reviewText = scan.nextLine();
