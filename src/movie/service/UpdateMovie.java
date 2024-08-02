@@ -21,7 +21,7 @@ public class UpdateMovie implements Movie {
         if (movieDAO.titleCheck(title)) {
             movieDAO.selectTitleSummary(title, userId);
         } else {
-            System.out.println("영화 제목이 올바르지 않습니다.");
+        	System.out.println("영화 제목 : " + title + "이(가) 존재하지 않습니다.");
             return;
         }
 
