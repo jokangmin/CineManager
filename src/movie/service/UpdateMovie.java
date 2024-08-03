@@ -9,10 +9,10 @@ public class UpdateMovie implements Movie {
 	private Scanner scan = new Scanner(System.in);
 	private String userId; // 로그인한 사용자의 ID	
 	int code;
-	
+
 	String dateFormat = "\\d{4}-\\d{2}-\\d{2}";
-    Pattern pattern = Pattern.compile(dateFormat);
-	
+	Pattern pattern = Pattern.compile(dateFormat);
+
 	public UpdateMovie(String userId) {
 		this.userId = userId;
 	}
@@ -20,19 +20,36 @@ public class UpdateMovie implements Movie {
 	@Override
 	public void execute() {
 		MovieDAO movieDAO = MovieDAO.getInstance();
+
+		while (true) {
+			System.out.print("등록한 영화 목록을 확인하시겠습니까? (y or n) : ");
+			String check = scan.nextLine().trim().toLowerCase();
+			if (check.equals("y")) {
+				System.out.println();
+				movieDAO.selectAll(userId);
+				break;
+			}
+			else if (check.equals("n")) { 
+				break;
+			}
+			else { 
+				System.out.println("잘못된 입력입니다. 'y' 또는 'n'만 입력해주세요.\n");
+			}
+		}
+
 		System.out.print("수정할 영화 제목 : ");
 		String title = scan.nextLine();
 
 		// 영화 제목 존재 여부 확인
-	    if (!movieDAO.titleCheck(title, userId)) {
-	        System.out.println("영화 제목 : " + title + " 이(가) 존재하지 않습니다.\n");
-	        return; // 영화 제목이 존재하지 않으면 수정 작업을 종료
-	    }
+		if (!movieDAO.titleCheck(title, userId)) {
+			System.out.println("영화 제목 : " + title + " 이(가) 존재하지 않습니다.\n");
+			return; // 영화 제목이 존재하지 않으면 수정 작업을 종료
+		}
 
-	    // 영화 제목이 존재하는 경우, 해당 제목의 영화 목록을 출력
-	    movieDAO.selectTitleSummary(title, userId);
-	    
-	    int code;
+		// 영화 제목이 존재하는 경우, 해당 제목의 영화 목록을 출력
+		movieDAO.selectTitleSummary(title, userId);
+
+		int code;
 		try {
 			System.out.print("수정할 영화 번호 : ");
 			code = scan.nextInt();
@@ -85,25 +102,25 @@ public class UpdateMovie implements Movie {
 				break;
 			case "개봉일":
 				while (true) {
-		            System.out.print("새로운 개봉일 (YYYY-MM-DD) : ");
-		            updateValue = scan.nextLine();
-		            
-		            if (pattern.matcher(updateValue).matches()) {
-		            	String[] parts = updateValue.split("-");
-		                int year = Integer.parseInt(parts[0]);
-		                int month = Integer.parseInt(parts[1]);
-		                int day = Integer.parseInt(parts[2]);
+					System.out.print("새로운 개봉일 (YYYY-MM-DD) : ");
+					updateValue = scan.nextLine();
 
-		                if (year >= 1000 && year <= 9999 && month >= 1 && month <= 12 && day >= 1 && day <= 31) {
-		                    break;
-		                } else {
-		                    System.out.println("잘못된 형식입니다. 다시 입력해주세요.");
-		                }
-		            }
-		            else {
-		                System.out.println("잘못된 형식입니다. 다시 입력해주세요.");
-		            }
-		        }
+					if (pattern.matcher(updateValue).matches()) {
+						String[] parts = updateValue.split("-");
+						int year = Integer.parseInt(parts[0]);
+						int month = Integer.parseInt(parts[1]);
+						int day = Integer.parseInt(parts[2]);
+
+						if (year >= 1000 && year <= 9999 && month >= 1 && month <= 12 && day >= 1 && day <= 31) {
+							break;
+						} else {
+							System.out.println("잘못된 형식입니다. 다시 입력해주세요.");
+						}
+					}
+					else {
+						System.out.println("잘못된 형식입니다. 다시 입력해주세요.");
+					}
+				}
 				break;
 			case "줄거리":
 				System.out.print("새로운 줄거리 : ");

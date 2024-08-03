@@ -32,7 +32,7 @@ public class UpdateReview implements Review{
 				break;
 			}
 			else { 
-				System.out.println("잘못된 입력입니다. 'y' 또는 'n'만 입력해주세요.");
+				System.out.println("잘못된 입력입니다. 'y' 또는 'n'만 입력해주세요.\n");
 			}
 		}
 

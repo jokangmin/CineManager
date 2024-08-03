@@ -22,6 +22,7 @@ public class SignInMember implements Member {
 		String pwd = null;
 
 		while (true) {
+			System.out.println();
 			System.out.print("아이디 입력 : ");
 			id = scan.next();
 			System.out.print("비밀번호 입력 : ");
