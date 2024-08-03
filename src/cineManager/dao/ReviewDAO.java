@@ -110,6 +110,35 @@ public class ReviewDAO {
         return su;
     }
 	
+	public void selectList(String userId) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+        	con = getConnection();
+        	String sql = "SELECT m.code, m.title, m.director, m.release_date, r.review " +
+                    "FROM movies m LEFT JOIN review r ON m.code = r.movie_code " +
+                    "WHERE r.user_id = ?"; // 0803 16:00
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rs = pstmt.executeQuery();
+			
+			System.out.println("******** 조회 결과 ********");
+			System.out.println(String.format("%-10s", "영화번호") + String.format("%-20s", "영화제목")
+					+ String.format("%-15s", "영화감독") + "영화개봉일");
+			while (rs.next()) {
+				System.out.println(
+						String.format("%-10s", rs.getString("code")) + String.format("%-20s", rs.getString("title"))
+								+ String.format("%-15s", rs.getString("director")) + rs.getDate("release_date"));
+			}
+			System.out.println();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(con, pstmt, rs);
+		}
+	}
+	
 	public void selectReview() {
         try {
            con = getConnection();

@@ -54,7 +54,7 @@ public class AddReview implements Review{
 	            scan.nextLine(); // 개행 문자 제거
 	            break;
 	        } catch (InputMismatchException e) {
-	            System.out.println("잘못된 입력입니다. 숫자를 입력해주세요.");
+	            System.out.println("잘못된 입력입니다. 숫자를 입력해주세요.\n");
 	            scan.nextLine(); // 잘못된 입력 처리 후 개행 문자 제거
 	        }
         }
