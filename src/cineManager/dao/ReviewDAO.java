@@ -142,4 +142,18 @@ public class ReviewDAO {
 		}
 	}
 	
+	public void deleteReview(int code, String userId) { //8/3 강민 , 리뷰 삭제하는 부분
+        try {
+        	con = getConnection();
+        	String sql = "delete review where movie_code = ? and user_Id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, code);
+			pstmt.setString(2, userId);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(con, pstmt, rs);
+		}
+	}
 }
