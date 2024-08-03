@@ -91,56 +91,63 @@ public class ReviewDAO {
 	
 	public void selectReview() {
         try {
-        	con = getConnection();
-        	String sql = "SELECT m.title AS 제목, m.director AS 감독, r.review AS 리뷰,r.user_id AS 유저아이디, TO_CHAR(r.logdate, 'YYYY-MM-DD hh:mm:ss') AS 등록날짜 FROM review r JOIN movies m ON r.movie_code = m.code ORDER BY m.title ASC , r.user_id DESC";
-			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			if (!rs.isBeforeFirst()) {
-	            System.out.println("조회된 데이터가 없습니다.");
-	        }
-			while (rs.next()) {
-				System.out.println("-----------------------------------------\n" +
-									"< " + rs.getString("제목") + " > : " + rs.getString("감독")+ "\n" +
-									"-----------------------------------------\n"+
-									"리뷰 : " + rs.getString("리뷰") + "\n" +
-									"-----------------------------------------\n"+
-									rs.getString("유저아이디") + "/" + rs.getString("등록날짜")+ "\n" +
-									"-----------------------------------------\n \n");
-			}
+           con = getConnection();
+             String sql = "SELECT m.title AS 제목, m.director AS 감독, r.review AS 리뷰, r.user_id AS 유저아이디, " +
+                      "TO_CHAR(CAST(r.logdate AS TIMESTAMP) AT TIME ZONE 'Asia/Seoul', 'YYYY-MM-DD HH24:MI:SS') AS 등록날짜 " +
+                      "FROM review r JOIN movies m ON r.movie_code = m.code " +
+                      "ORDER BY m.title ASC, r.user_id DESC";
+         pstmt = con.prepareStatement(sql);
+         rs = pstmt.executeQuery();
+         if (!rs.isBeforeFirst()) {
+               System.out.println("조회된 데이터가 없습니다.");
+           }
+         while (rs.next()) {
+            System.out.println("-----------------------------------------\n" +
+                           "< " + rs.getString("제목") + " > : " + rs.getString("감독")+ "\n" +
+                           "-----------------------------------------\n"+
+                           "리뷰 : " + rs.getString("리뷰") + "\n" +
+                           "-----------------------------------------\n"+
+                           rs.getString("유저아이디") + "/" + rs.getString("등록날짜")+ "\n" +
+                           "-----------------------------------------\n \n");
+         }
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			closeAll(con, pstmt, rs);
-		}
-	}
-	
-	public void selectTitleReview(String title) { //8/2 11:19 강민 수정
+      } catch (SQLException e) {
+         e.printStackTrace();
+      } finally {
+         closeAll(con, pstmt, rs);
+      }
+   }
+   
+   public void selectTitleReview(String title) { //8/2 11:19 강민 수정
         try {
-        	con = getConnection();
-        	String sql = "SELECT m.title AS 제목, m.director AS 감독, r.review AS 리뷰,r.user_id AS 유저아이디, TO_CHAR(r.logdate, 'YYYY-MM-DD hh:mm:ss') AS 등록날짜 FROM review r JOIN movies m ON r.movie_code = m.code WHERE m.title LIKE ? ORDER BY r.user_id DESC";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, "%" + title + "%");
-			rs = pstmt.executeQuery();
-			if (!rs.isBeforeFirst()) {
-	            System.out.println("조회된 데이터가 없습니다.");
-	        }
-			while (rs.next()) {
-				System.out.println("-----------------------------------------\n" +
-									"< " + rs.getString("제목") + " > : " + rs.getString("감독")+ "\n" +
-									"-----------------------------------------\n"+
-									"리뷰 : " + rs.getString("리뷰") + "\n" +
-									"-----------------------------------------\n"+
-									rs.getString("유저아이디") + "/" + rs.getString("등록날짜")+ "\n" +
-									"-----------------------------------------\n \n");
-			}
+           con = getConnection();
+             String sql = "SELECT m.title AS 제목, m.director AS 감독, r.review AS 리뷰, r.user_id AS 유저아이디, " +
+                      "TO_CHAR(CAST(r.logdate AS TIMESTAMP) AT TIME ZONE 'Asia/Seoul', 'YYYY-MM-DD HH24:MI:SS') AS 등록날짜 " +
+                      "FROM review r JOIN movies m ON r.movie_code = m.code " +
+                      "WHERE m.title LIKE ? " +
+                      "ORDER BY m.title ASC, r.user_id DESC";
+         pstmt = con.prepareStatement(sql);
+          pstmt.setString(1, "%" + title + "%");  
+         rs = pstmt.executeQuery();
+         if (!rs.isBeforeFirst()) {
+               System.out.println("조회된 데이터가 없습니다.");
+           }
+         while (rs.next()) {
+            System.out.println("-----------------------------------------\n" +
+                           "< " + rs.getString("제목") + " > : " + rs.getString("감독")+ "\n" +
+                           "-----------------------------------------\n"+
+                           "리뷰 : " + rs.getString("리뷰") + "\n" +
+                           "-----------------------------------------\n"+
+                           rs.getString("유저아이디") + "/" + rs.getString("등록날짜")+ "\n" +
+                           "-----------------------------------------\n \n");
+         }
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			closeAll(con, pstmt, rs);
-		}
-	}
+      } catch (SQLException e) {
+         e.printStackTrace();
+      } finally {
+         closeAll(con, pstmt, rs);
+      }
+   }
 	
 	public void deleteReview(int code, String userId) { //8/3 강민 , 리뷰 삭제하는 부분
         try {
