@@ -62,7 +62,7 @@ public class SignInMain implements Member {
                 	break;
                 	//
                 case 6:
-                    new UpdateMember().execute();
+                    new UpdateMember(userId).execute();
                     break;
                 case 7:
                     new DeleteMember(userId).execute();

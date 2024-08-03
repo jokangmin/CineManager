@@ -11,6 +11,13 @@ import java.util.regex.Pattern;
 public class UpdateMember implements Member {
 	private Scanner scan = new Scanner(System.in);
 	
+	private String userId; // 로그인한 사용자의 ID
+	
+	public UpdateMember(String userId) {
+        this.userId = userId;
+    }
+	
+	
 	@Override
 	public void execute() {
 		// DB - SingleTon
@@ -22,18 +29,17 @@ public class UpdateMember implements Member {
 		while (true) {
 			System.out.print("아이디 검색 : ");
 			id = scan.next();
-			
-			// DB에서 해당 아이디로 회원 정보 조회
-			memberDTO = memberDAO.getMemberToUpdate(id);
-            
-            if (memberDTO == null) {
-                System.out.println("검색한 아이디가 없습니다.");
-            }
-			else {
-				// 회원 정보 출력
+		
+			if(id.equals(userId)) {
+				// DB에서 해당 아이디로 회원 정보 조회
+				memberDTO = memberDAO.getMemberToUpdate(id);
 				System.out.println(memberDTO);
 				break;
 			}
+			else {
+				System.out.println("*로그인한 ID가 아닙니다. 다시 입력해주세요.*");
+			}
+			
 		}
 		
 		
