@@ -12,6 +12,7 @@ public class IndexMain {
 	public void menu() {
 		Member member = null;
 
+		
 		while(true) {
 			System.out.println("*****************************************");
 			System.out.println("	1. 회원가입");
@@ -41,11 +42,42 @@ public class IndexMain {
 		}
 	}
 
+	
 	public static void main(String[] args) {
-		IndexMain indexMain = new IndexMain();
-		indexMain.menu();
-		System.out.println("프로그램을 종료합니다");
-	}
+        // ASCII 아트를 출력하는 메소드 호출
+        printCinemaManagerHeader();
+        
+        // IndexMain 객체를 생성하고 메뉴 메소드 호출
+        IndexMain indexMain = new IndexMain();
+        indexMain.menu();
+        
+        // 프로그램 종료 메시지 출력
+        System.out.println("프로그램을 종료합니다");
+    }
+
+    // ASCII 아트를 출력하는 메소드 정의
+    public static void printCinemaManagerHeader() {
+        String header = 
+                "    ______  __  .__   __.  _______                                 \n" +
+                "   /      ||  | |  \\ |  | |   ____|                                \n" +
+                "  |  ,----'|  | |   \\|  | |  |__                                  \n" +
+                "  |  |     |  | |  . `  | |   __|                                 \n" +
+                "  |  `----.|  | |  |\\   | |  |____                                \n" +
+                "   \\______||__| |__| \\__| |_______|                                \n" +
+                "  .___  ___.      ___      .__   __.      ___       _______  _______ .______ \n" +
+                "  |   \\/   |     /   \\     |  \\ |  |     /   \\     /  _____||   ____||   _  \\ \n" +
+                "  |  \\  /  |    /  ^  \\    |   \\|  |    /  ^  \\   |  |  __  |  |__   |  |_)  | \n" +
+                "  |  |\\/|  |   /  /_\\  \\   |  . `  |   /  /_\\  \\  |  | |_ | |   __|  |      / \n" +
+                "  |  |  |  |  /  _____  \\  |  |\\   |  /  _____  \\ |  |__| | |  |____ |  |\\  \\----.\n" +
+                "  |__|  |__| /__/     \\__\\ |__| \\__| /__/     \\__\\ \\______| |_______|| _| `._____| \n"; 
+
+
+        System.out.println(header);
+}
+	
+	
+
+
 
 }
 
