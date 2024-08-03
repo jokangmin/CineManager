@@ -24,7 +24,7 @@ public class UpdateReview implements Review{
 			System.out.print("작성한 후기 목록을 확인하시겠습니까? (y or n) : ");
 			String check = scan.nextLine().trim().toLowerCase();
 			if (check.equals("y")) {
-				System.out.println(
+				System.out.println();
 				reviewDAO.selectList(userId);
 				break;
 			}
