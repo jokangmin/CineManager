@@ -78,6 +78,20 @@ public class MemberDAO {
 
 		return exists;
 	}
+	
+	public boolean isExistPhone(String phone) { // phone 중복체크
+		boolean exists = false;
+		String sql = "select * from members where phone = ?";
+		
+		try {
+			pstmt = prepareStatement(sql, phone);
+			rs = pstmt.executeQuery();
+			exists = rs.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return exists;
+	}
 
 	public void insert(MemberDTO memberDTO) { // 회원가입
 		int su = 0;
