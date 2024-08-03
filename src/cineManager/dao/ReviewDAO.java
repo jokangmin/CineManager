@@ -156,4 +156,21 @@ public class ReviewDAO {
 			closeAll(con, pstmt, rs);
 		}
 	}
+	
+	//리뷰 수정 240803 혜진 추가 
+	public void updateReview(int code, String userId, String review) { 
+        try {
+        	con = getConnection();
+        	String sql = "update review set review = ? where movie_code = ? and user_Id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1,review);
+			pstmt.setInt(2, code);
+			pstmt.setString(3, userId);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(con, pstmt, rs);
+		}
+	}
 }
