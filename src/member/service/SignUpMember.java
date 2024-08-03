@@ -71,6 +71,7 @@ public class SignUpMember implements Member{
                 System.out.println("잘못된 핸드폰 번호 형식입니다. 다시 입력해주세요.\n");
             }
 		}
+		
 		// MemberDTO 객체 생성 및 필드 설정
 		MemberDTO memberDTO = new MemberDTO(name, id, pwd, phone);
 		

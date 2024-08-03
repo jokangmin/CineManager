@@ -6,6 +6,7 @@ import cineManager.bean.MemberDTO;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class UpdateMember implements Member {
 	private Scanner scan = new Scanner(System.in);
@@ -42,8 +43,38 @@ public class UpdateMember implements Member {
 		System.out.print("수정할 비밀번호 입력 : ");
 		String pwd = scan.next();
 		
-		System.out.print("수정할 핸드폰 입력(010-1234-1234) : ");
-		String phone = scan.next();
+		String phoneNumber;
+		String dateFormat = "\\d{3}-\\d{4}-\\d{4}";
+		Pattern pattern = Pattern.compile(dateFormat);
+		
+		String phone = null;
+		while (true) {
+
+			System.out.print("핸드폰번호 입력(010-1234-5678) : ");
+			phone = scan.next();
+			
+			if (pattern.matcher(phone).matches()) {
+                String[] parts = phone.split("-");
+                int one = Integer.parseInt(parts[0]);
+                int two = Integer.parseInt(parts[1]);
+                int three = Integer.parseInt(parts[2]);
+
+                if (one >= 0 && one <= 999 && two >= 0 && two <= 9999 && three >= 0 && three <= 9999) {
+                	// phone 중복체크
+        			boolean exist = memberDAO.isExistPhone(phone);
+        			if (exist) {
+        				System.out.println("이미 등록된 전화번호입니다. 다시 입력하세요.\n");
+        			}
+        			else {
+        				break;
+        			}
+                } else {
+                    System.out.println("잘못된 핸드폰 번호 형식입니다. 다시 입력해주세요.\n");
+                }
+            } else {
+                System.out.println("잘못된 핸드폰 번호 형식입니다. 다시 입력해주세요.\n");
+            }
+		}
 		
 		Map<String, String> map = new HashMap<>();
 		map.put("name", name);
