@@ -39,7 +39,7 @@ public class DeleteMember implements Member {
 				}
 			}
 			else {
-				System.out.println("*로그인한 ID와 같은 ID 가 아닙니다. 다시 입력해주세요.*");
+				System.out.println("*로그인한 ID와 같은 ID 가 아닙니다. 다시 입력해주세요.\n*");
 			}
 		}
 		 memberDAO.delete(id);
