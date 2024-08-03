@@ -19,7 +19,7 @@ public class UpdateReview implements Review{
 		   
 	      ReviewDAO reviewDAO = ReviewDAO.getInstance();
 	      MovieDAO movieDAO = MovieDAO.getInstance();
-	      System.out.print("리뷰 삭제할 영화 제목 : ");
+	      System.out.print("리뷰 수정할 영화 제목 : ");
 	      String title = scan.nextLine();
 	      
 	      if(movieDAO.titleCheck(title, userId)) {
@@ -36,7 +36,8 @@ public class UpdateReview implements Review{
 	    	  if(reviewExists) {
 	    		  String get_title = movieDAO.getTitle(code, userId);
 	    		  System.out.print("수정리뷰 : ");
-	    		  String review = scan.next();
+	    		  scan.nextLine();
+	    		  String review = scan.nextLine();
 	        	  reviewDAO.updateReview(code,userId,review);
 	        	  System.out.println("영화\t" + get_title + " ( code : " + code +" )리뷰를 수정했습니다.\n");
 	        	  return;
