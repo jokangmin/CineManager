@@ -65,7 +65,7 @@ public class SignInMain implements Member {
                     new UpdateMember().execute();
                     break;
                 case 7:
-                    new DeleteMember().execute();
+                    new DeleteMember(userId).execute();
                     return; // 조강민 08/01 수정 
                     //break;
                 case 8:

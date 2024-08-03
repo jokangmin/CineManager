@@ -9,6 +9,7 @@ import java.util.Scanner;
 import cineManager.bean.ReviewDTO;
 import cineManager.dao.MovieDAO;
 import cineManager.dao.ReviewDAO;
+import movie.service.AddMovie;
 
 public class AddReview implements Review{
 	private Scanner scan = new Scanner(System.in);
@@ -21,19 +22,41 @@ public class AddReview implements Review{
 	public void execute() {
 		MovieDAO movieDAO = MovieDAO.getInstance();
         ReviewDAO reviewDAO = ReviewDAO.getInstance();
-		
-        movieDAO.selectAll(userId); // 전체 영화 출력
-        
-        System.out.print("후기 작성할 영화 등록번호 : ");
         int movieCode = 0;
         
-        try {
-            movieCode = scan.nextInt();
-            scan.nextLine(); // 개행 문자 제거
-        } catch (InputMismatchException e) {
-            System.out.println("잘못된 입력입니다. 숫자를 입력해주세요.");
-            scan.nextLine(); // 잘못된 입력 처리 후 개행 문자 제거
-            return;
+        boolean exists = reviewDAO.checkMovieExists(userId); //작성한 영화가 있는지 확인 
+        if(exists) movieDAO.selectAll(userId); // 영화가 있으면 전체 영화 출력
+        else {									// 영화가 없으면 등록 이동 / 뒤로가기 구현 //강민 8/3
+        	System.out.println("후기를 작성할 영화가 없습니다.");
+        	while(true) {
+	        	System.out.print("영화를 등록하시겠습니까? (y or n)");
+	        	String state = scan.nextLine().trim().toLowerCase(); //대문자 소문자 상관없이 입력
+	        	if(state.equals("y")) {
+	        		System.out.println("영화 등록으로 이동합니다.");
+	        		new AddMovie(userId).execute();
+	        		return;
+	        	}
+	        	else if(state.equals("n")) {
+	        		System.out.println("메뉴로 돌아갑니다.");
+	        		return;
+	        	}
+	        	else {
+	        		System.out.println("알맞은 형식으로 입력해주세요.");
+	        	}
+        	}
+        }
+        
+        while(true) { //등록번호가 잘못 입력했을 때 나가지 않고 while 문 돌리기  // 강민 8/3
+	        System.out.print("후기 작성할 영화 등록번호 : ");
+	        
+	        try {
+	            movieCode = scan.nextInt();
+	            scan.nextLine(); // 개행 문자 제거
+	            break;
+	        } catch (InputMismatchException e) {
+	            System.out.println("잘못된 입력입니다. 숫자를 입력해주세요.");
+	            scan.nextLine(); // 잘못된 입력 처리 후 개행 문자 제거
+	        }
         }
         
         // 영화 개봉 날짜 확인

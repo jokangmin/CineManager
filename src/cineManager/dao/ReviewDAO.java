@@ -68,6 +68,27 @@ public class ReviewDAO {
 		return exists;
 	}
 	
+	public boolean checkMovieExists(String userId) { //8/3 강민 추가 
+		boolean exists = false;
+		String sql = "select count(*) from movies where user_id =?";
+		
+		try {
+			con = getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+	            exists = (rs.getInt(1) > 0); // 리뷰가 존재하면 true, 아니면 false
+	        }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+	        closeAll(con, pstmt, rs);
+	    }
+		return exists;
+	}
+	
 	public int addReview(ReviewDTO reviewDTO) {
         int su = 0;
         String sql = "INSERT INTO review (review_id, movie_code, user_id, review, logdate) VALUES (review_id_seq.NEXTVAL, ?, ?, ?, ?)";
