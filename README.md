@@ -93,7 +93,7 @@
          review CLOB,
          logdate DATE,
          FOREIGN KEY (movie_code) REFERENCES movies(code) ON DELETE CASCADE,
-         FOREIGN KEY (user_id) REFERENCES members(id)
+         FOREIGN KEY (user_id) REFERENCES members(id) ON DELETE CASCADE
      );
      CREATE SEQUENCE review_id_seq
          START WITH 1
